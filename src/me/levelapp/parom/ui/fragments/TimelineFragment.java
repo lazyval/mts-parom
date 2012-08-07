@@ -13,10 +13,10 @@ import me.levelapp.parom.R;
  * Date: 07.08.12
  * Time: 13:50
  */
-public class EventsFragment extends Fragment {
+public class TimelineFragment extends Fragment {
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View ret = inflater.inflate(R.layout.fragment_events, container, false);
+    final public View onCreateView(final LayoutInflater inflater,final  ViewGroup container,final  Bundle savedInstanceState) {
+        final View ret = inflater.inflate(R.layout.fragment_events, container, false);
         return ret;
     }
 }
