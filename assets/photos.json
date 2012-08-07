@@ -1,0 +1,4 @@
+[{'file':'/some/path/to/file', 'date':'7 august 19:00', 'name':'Бухаловка', 'tag':'Longue Bar'},
+{'file':'/some/path/to/file2', 'date':'7 august 23:00', 'name':'Бухаловка2', 'tag':'Longue Bar2'},
+{'file':'/some/path/to/file2', 'date':'7 august 23:00', 'name':'Бухаловка2', 'tag':'Longue Bar2'},
+{'file':'/some/path/to/file', 'date':'7 august 19:00', 'name':'Бухаловка', 'tag':'Longue Bar'}]

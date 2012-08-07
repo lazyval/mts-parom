@@ -5,7 +5,7 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 import com.google.common.io.CharStreams;
 import com.google.common.io.InputSupplier;
-import model.Parom;
+import me.levelapp.parom.model.Parom;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
