@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Toast;
 import me.levelapp.parom.R;
@@ -14,7 +15,7 @@ import me.levelapp.parom.http.UploadPictureTask;
 
 import java.io.File;
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
 
     private static final int REQUEST_CAMERA_CAPTURE = 0;
     private static final int REQUEST_PICK_FROM_GALLERY = 1;
@@ -27,9 +28,6 @@ public class MainActivity extends Activity {
         super.onRestoreInstanceState(savedInstanceState);
         mImageUri = Uri.parse(savedInstanceState.getString(STATE_CAM_PHOTO_URI));
     }
-
-
-
 
 
     /**
@@ -70,7 +68,9 @@ public class MainActivity extends Activity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString(STATE_CAM_PHOTO_URI, mImageUri.toString());
+        if (mImageUri != null) {
+            outState.putString(STATE_CAM_PHOTO_URI, mImageUri.toString());
+        }
     }
 
     @Override

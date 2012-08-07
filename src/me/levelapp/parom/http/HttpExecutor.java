@@ -28,7 +28,7 @@ import java.util.zip.GZIPInputStream;
 public class HttpExecutor {
     private static final String TAG = "Parom-HTTP";
     private static final String TMP_IMG = "tmp-compress-image.png";
-
+    private static final int DESIRED_SIZE  = 400000;
 
     public static JSONObject uploadFile(String uri, File fileToUpload) {
 
@@ -78,13 +78,14 @@ public class HttpExecutor {
         if (Parom.inst().isWifiAvailable()){
             return fileToUpload;
         }
+        long time = System.currentTimeMillis();
         long fileLength = fileToUpload.length();
         BitmapFactory.Options origOptions = new BitmapFactory.Options();
         origOptions.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(fileToUpload.getAbsolutePath(), origOptions);
         origOptions.inSampleSize = 1;
-        if (fileLength > 700000) {
-            while (fileLength / origOptions.inSampleSize / origOptions.inSampleSize > 700000) {
+        if (fileLength > DESIRED_SIZE) {
+            while (fileLength / origOptions.inSampleSize / origOptions.inSampleSize > DESIRED_SIZE) {
                 origOptions.inSampleSize ++;
             }
         }
@@ -95,6 +96,7 @@ public class HttpExecutor {
             File ret =  Parom.inst().getFileStreamPath(TMP_IMG);
             OutputStream out = new FileOutputStream(ret);
             if (compressed.compress(Bitmap.CompressFormat.PNG, 100,out)){
+                Log.d(TAG, "compressed in " + (System.currentTimeMillis()- time));
                 Log.d(TAG, "image compressed ");
                 return ret;
             };

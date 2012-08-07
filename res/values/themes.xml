@@ -1,0 +1,15 @@
+<resources>
+    <style name="Tab">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:drawablePadding">-6dp</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:button">@android:color/transparent</item>
+        <item name="android:background">@drawable/bg_tab_selected</item>
+
+    </style>
+</resources>

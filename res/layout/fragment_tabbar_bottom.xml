@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--android:layout_width="fill_parent"-->
+<!--android:layout_height="fill_parent"-->
+<!--android:background="#403000"-->
+<!-->-->
+<!--<FrameLayout-->
+<!--android:id="@+id/tab_content"-->
+<!--android:layout_width="fill_parent"-->
+<!--android:layout_height="fill_parent"-->
+<!--android:layout_above="@+id/tab_bar_bottom"-->
+<!--android:background="#030303"-->
+<!--/>-->
+
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        >
+    <RadioGroup
+        xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/tabbar_bottom"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_tabbar"
+            >
+
+        <RadioButton
+                android:id="@+id/tab_events"
+                style="@style/Tab"
+
+                android:text="@string/tab_events"
+                />
+        <RadioButton
+                android:id="@+id/tab_photo"
+                style="@style/Tab"
+
+                android:text="@string/tab_photo"
+
+                />
+
+        <RadioButton
+                android:id="@+id/tab_achieve"
+                style="@style/Tab"
+
+
+                android:text="@string/tab_achieve"
+
+
+                />
+        <!--to add icon use drawwableTop-->
+    </RadioGroup>
+
+
+
+</RelativeLayout>
