@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+        >
+    <Button
+            android:id="@+id/btn_make_photo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="requestPhoto"
+        android:text="@string/make_photo"
+        />
+    <Button
+            android:id="@+id/btn_upload_from_gallery"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="requestGallery"
+            android:text="@string/make_pick_from_gallery"
+            />
+</LinearLayout>
+
