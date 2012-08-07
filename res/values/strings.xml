@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">mts-parom</string>
     <string name="mount_sdcard">No sd card</string>
@@ -8,4 +8,5 @@
     <string name="tab_events">События</string>
     <string name="tab_photo">Фотографии</string>
     <string name="tab_achieve">Достижения</string>
+	<string name="timelineLabel">Time</string>
 </resources>
