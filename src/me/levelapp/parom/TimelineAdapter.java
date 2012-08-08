@@ -1,5 +1,6 @@
 package me.levelapp.parom;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,36 +24,38 @@ public class TimelineAdapter extends BaseExpandableListAdapter {
     private static final String TAG = "TimelineAdapter";
     private static final ArrayList<Event> EMPTY_EVENTS_LIST = new ArrayList<Event>();
     private final List<Event> events;
+//    private final Context context;
 
-    public TimelineAdapter(final String URI) {
-        events = readEventsFromJSON(URI);
+    public TimelineAdapter(final Context context) {
+//        this.context = context;
+        final String jsonUrl = context.getString(R.string.json_events_uri);
+        events = readEventsFromJSON(jsonUrl);
         Log.i(TAG, events.size() + " parsed");
         Collections.sort(events);
     }
 
-    public List<Event> readEventsFromJSON(final String URI) {
+
+    private List<Event> readEventsFromJSON(final String URI) {
         // read from remote
         String json = "";
         InputStream in = null;
         try {
             in = new URL(URI).openStream();
-            json = IOUtils.toString( in );
-        }
-        catch (final MalformedInputException e) {
-            Log.wtf(TAG,"Wrong JSON events url "+URI);
-        }
-        catch (final IOException e) {
+            json = IOUtils.toString(in);
+        } catch (final MalformedInputException e) {
+            Log.wtf(TAG, "Wrong JSON events url " + URI);
+        } catch (final IOException e) {
             // TODO: fallback to the latest successful download
             Log.e(TAG, "Cannot read JSON file from " + URI + " Exact problem: " + e.getMessage());
             return EMPTY_EVENTS_LIST;
-        }
-        finally {
+        } finally {
             IOUtils.closeQuietly(in);
         }
 
         // parse
         final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-        final Type listOfEvents = new TypeToken<Collection<Event>>(){}.getType();
+        final Type listOfEvents = new TypeToken<Collection<Event>>() {
+        }.getType();
         final List<Event> parsedEvents = gson.fromJson(json, listOfEvents);
         return parsedEvents == null ? EMPTY_EVENTS_LIST : parsedEvents;
     }

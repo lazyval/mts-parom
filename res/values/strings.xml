@@ -3,12 +3,13 @@
     <string name="app_name">Мтс Паром</string>
     <string name="mount_sdcard">No sd card</string>
     <string name="upload_uri">http://korniltsev.ru/mts/upload</string>
+    <string name="json_events_uri">http://korniltsev.ru/p/events.json</string>
     <string name="make_pick_from_gallery">Pick from gallery</string>
     <string name="make_photo">Make photo</string>
     <string name="tab_events">События</string>
     <string name="tab_photo">Фотографии</string>
     <string name="tab_achieve">Достижения</string>
-	<string name="timelineLabel">Time</string>
+    <string name="timelineLabel">Time</string>
     <string name="label_share">Поделиться</string>
     <string name="label_delete">Удалить</string>
 </resources>
