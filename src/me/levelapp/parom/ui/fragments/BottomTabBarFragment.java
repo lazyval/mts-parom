@@ -53,7 +53,7 @@ public class BottomTabBarFragment extends Fragment {
         TabBarManager barManager = new TabBarManager(getActivity(), grp, R.id.tab_content);
 
 
-        barManager.add(R.id.tab_events, EventsFragment.class);
+        barManager.add(R.id.tab_events, TimelineFragment.class);
         barManager.add(R.id.tab_photo, PhotoFragment.class);
         barManager.add(R.id.tab_achieve, AchievementsFragment.class);
 

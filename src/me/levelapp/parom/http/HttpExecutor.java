@@ -99,7 +99,7 @@ public class HttpExecutor {
                 Log.d(TAG, "compressed in " + (System.currentTimeMillis()- time));
                 Log.d(TAG, "image compressed ");
                 return ret;
-            };
+            }
 
         } catch (FileNotFoundException e) {
             Log.e(TAG, "FTW, file should always can be created", e);
