@@ -52,13 +52,11 @@ public class TimelineAdapter extends BaseExpandableListAdapter {
 
     @Override
     final public Object getGroup(int i) {
-        Log.i(TAG, "Get group");
         return events[i].name;
     }
 
     @Override
     final public Object getChild(int groupPos, int childPos) {
-        Log.i(TAG, "Get child");
         return events[groupPos].description;
     }
 
@@ -79,8 +77,6 @@ public class TimelineAdapter extends BaseExpandableListAdapter {
 
     @Override
     final public View getGroupView(int i, boolean isExpanded, View view, ViewGroup viewGroup) {
-        Log.i(TAG, "Get group view");
-        Log.i(TAG, "Group view is "+view);
         if(view == null)
             view = new TextView(context);
         return view;
@@ -88,10 +84,8 @@ public class TimelineAdapter extends BaseExpandableListAdapter {
 
     @Override
     final public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView , ViewGroup parent) {
-        Log.i(TAG, "Get child group view");
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.view_event_item, parent, false);
-
         }
         return convertView;
     }
