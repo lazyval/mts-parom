@@ -7,7 +7,8 @@
             android:id="@+id/img_content"
         android:layout_width="fill_parent"
         android:layout_height="250dp"
-            android:src="@drawable/ic_debug_party"/>
+            android:src="@drawable/ic_debug_party"
+            android:scaleType="centerCrop"/>
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -35,7 +36,7 @@
                 android:id="@+id/img_forward"
             android:layout_width="20dp"
             android:layout_height="40dp"
-            android:background="#efaaef"
+            android:src="@drawable/ic_forward"
 
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"

@@ -10,24 +10,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.common.base.Joiner;
-import com.google.common.io.CharStreams;
-import com.google.common.io.InputSupplier;
 import me.levelapp.parom.R;
-import me.levelapp.parom.model.JSONFiles;
 import me.levelapp.parom.model.Parom;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
 /**
  * User: anatoly
  * Date: 07.08.12
  * Time: 14:28
  */
-public class GalleryAdapter extends ArrayAdapter implements InputSupplier<InputStreamReader> {
+public class GalleryAdapter extends ArrayAdapter  {
 
     private class GalleryItemHolder {
         ImageView img;
@@ -48,17 +41,15 @@ public class GalleryAdapter extends ArrayAdapter implements InputSupplier<InputS
     public GalleryAdapter(Context context) {
         super(context, 0);
         mContext = context;
-        try {
-            mData = new JSONArray(CharStreams.toString(this));
-        } catch (Exception e) {
-            mData = new JSONArray();
-        }
+
+
     }
 
-    @Override
-    public InputStreamReader getInput() throws IOException {
-        return new InputStreamReader(new BufferedInputStream(mContext.openFileInput(JSONFiles.PHOTOS)));
+    public void setData(JSONArray arr){
+        mData = arr;
+        notifyDataSetChanged();
     }
+
 
     @Override
     public int getCount() {

@@ -9,7 +9,12 @@ import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import com.google.common.eventbus.EventBus;
+import com.google.common.io.ByteStreams;
 import me.levelapp.parom.utils.MemoryCache;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * User: anatoly
@@ -40,16 +45,16 @@ public class Parom extends Application {
         return inst().bus;
     }
     private void copyDebugPhotos() {
-//        try {
-//            InputStream in = getAssets().open(JSONFiles.PHOTOS);
-//            OutputStream out = openFileOutput(JSONFiles.PHOTOS, MODE_PRIVATE);
-//            ByteStreams.copy(in, out);
-//            in.close();
-//            out.flush();
-//            out.close();
-//        } catch (IOException e) {
-//            throw new RuntimeException("FTW? :O");
-//        }
+        try {
+            InputStream in = getAssets().open(JSONFiles.EVENTS);
+            OutputStream out = openFileOutput(JSONFiles.EVENTS, MODE_PRIVATE);
+            ByteStreams.copy(in, out);
+            in.close();
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            throw new RuntimeException("FTW? :O");
+        }
     }
 
     public static Parom inst(){

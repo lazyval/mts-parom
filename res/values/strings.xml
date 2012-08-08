@@ -12,4 +12,10 @@
     <string name="timelineLabel">Time</string>
     <string name="label_share">Поделиться</string>
     <string name="label_delete">Удалить</string>
+    <string name="debug_name_date">19:00 Марафон коктейлей</string>
+    <string name="debug_place">Ресторан у моря\nКонкурс миисс паром</string>
+    <string name="debug_event_description">бесплатный второй коктейль, тетки и мужики крутота.\n
+        бесплатный второй коктейль, тетки и мужики крутота.</string>
+    <string name="go">Я пойду</string>
+    <string name="do_not_go">Don\'t go</string>
 </resources>

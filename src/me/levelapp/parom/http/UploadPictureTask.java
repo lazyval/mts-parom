@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
@@ -34,6 +35,7 @@ public class UploadPictureTask extends AsyncTask<File, Void, JSONObject> {
         mFIle = params[0];
         return HttpExecutor.uploadFile(mUri, params[0]);
     }
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yy HH.mm");
 
     @Override
     protected void onPostExecute(JSONObject jsonObject) {
@@ -43,7 +45,8 @@ public class UploadPictureTask extends AsyncTask<File, Void, JSONObject> {
         try {
             JSONObject obj = new JSONObject();
             obj.put("file", mFIle.getAbsolutePath());
-            obj.put("date", new Date().toString());
+
+            obj.put("date", formatter.format(new Date()));
             obj.put("name", "WHATEVER");
             if (new Random().nextInt() % 2 == 0) {
                 obj.put("tag", "WHATEVER");

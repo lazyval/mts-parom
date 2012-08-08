@@ -7,7 +7,7 @@
     <FrameLayout
             android:id="@+id/wrapper_title"
             android:layout_width="fill_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             android:background="#efefff">
         <TextView
                 android:id="@+id/label_title"
@@ -23,20 +23,22 @@
             android:name="me.levelapp.parom.ui.fragments.BottomTabBarFragment"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_below="@id/wrapper_title"
             />
     <FrameLayout
             android:id="@+id/tab_content"
             android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_above="@id/tab_bar"
-            android:layout_below="@id/wrapper_title"
+            android:layout_height="fill_parent"
+
+            android:layout_below="@id/tab_bar"
+
             />
     <Button
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
             android:text="PHOTO"
             android:onClick="makePhoto"
             />
