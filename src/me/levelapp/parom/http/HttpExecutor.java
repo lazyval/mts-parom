@@ -5,7 +5,7 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 import com.google.common.io.CharStreams;
 import com.google.common.io.InputSupplier;
-import model.Parom;
+import me.levelapp.parom.model.Parom;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -29,6 +29,8 @@ public class HttpExecutor {
     private static final String TAG = "Parom-HTTP";
     private static final String TMP_IMG = "tmp-compress-image.png";
     private static final int DESIRED_SIZE  = 400000;
+    private static int MAX_SIZE = 500;
+
 
     public static JSONObject uploadFile(String uri, File fileToUpload) {
 
@@ -75,9 +77,7 @@ public class HttpExecutor {
     }
 
     private static File compressFile(File fileToUpload) {
-        if (Parom.inst().isWifiAvailable()){
-            return fileToUpload;
-        }
+
         long time = System.currentTimeMillis();
         long fileLength = fileToUpload.length();
         BitmapFactory.Options origOptions = new BitmapFactory.Options();
@@ -92,10 +92,20 @@ public class HttpExecutor {
         BitmapFactory.Options compressOptions = new BitmapFactory.Options();
         compressOptions.inSampleSize = origOptions.inSampleSize;
         Bitmap compressed = BitmapFactory.decodeFile(fileToUpload.getAbsolutePath(), compressOptions);
+        Bitmap scaled = compressed;
+        if (compressOptions.outHeight > MAX_SIZE || compressOptions.outWidth > MAX_SIZE){
+            if (compressOptions.outHeight > compressOptions.outWidth){
+                scaled = Bitmap.createScaledBitmap(scaled,
+                        MAX_SIZE * compressOptions.outWidth/compressOptions.outHeight , MAX_SIZE, false);
+            } else {
+                scaled = Bitmap.createScaledBitmap(scaled,
+                        MAX_SIZE  , MAX_SIZE * compressOptions.outHeight/compressOptions.outWidth, false);
+            }
+        }
         try {
             File ret =  Parom.inst().getFileStreamPath(TMP_IMG);
             OutputStream out = new FileOutputStream(ret);
-            if (compressed.compress(Bitmap.CompressFormat.PNG, 100,out)){
+            if (scaled.compress(Bitmap.CompressFormat.PNG, 100,out)){
                 Log.d(TAG, "compressed in " + (System.currentTimeMillis()- time));
                 Log.d(TAG, "image compressed ");
                 return ret;
