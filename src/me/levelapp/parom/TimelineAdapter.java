@@ -2,67 +2,47 @@ package me.levelapp.parom;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.TextView;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.apache.commons.io.IOUtils;
+import me.levelapp.parom.http.DownloadURLToStringTask;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Type;
-import java.net.URL;
-import java.nio.charset.MalformedInputException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.Arrays;
 
 public class TimelineAdapter extends BaseExpandableListAdapter {
     private static final String TAG = "TimelineAdapter";
-    private static final ArrayList<Event> EMPTY_EVENTS_LIST = new ArrayList<Event>();
-    private final List<Event> events;
-//    private final Context context;
+    private static final Event[] EMPTY_EVENTS_LIST = new Event[]{};
+    private final Event[] events;
+
+    private final Context context;
 
     public TimelineAdapter(final Context context) {
-//        this.context = context;
+        this.context = context;
         final String jsonUrl = context.getString(R.string.json_events_uri);
-        events = readEventsFromJSON(jsonUrl);
-        Log.i(TAG, events.size() + " parsed");
-        Collections.sort(events);
+        final String json = new DownloadURLToStringTask().doInBackground(jsonUrl);
+        events = parseFromJSON(json);
+        Log.i(TAG, events.length + " parsed");
+        Arrays.sort(events);
     }
 
 
-    private List<Event> readEventsFromJSON(final String URI) {
-        // read from remote
-        String json = "";
-        InputStream in = null;
-        try {
-            in = new URL(URI).openStream();
-            json = IOUtils.toString(in);
-        } catch (final MalformedInputException e) {
-            Log.wtf(TAG, "Wrong JSON events url " + URI);
-        } catch (final IOException e) {
-            // TODO: fallback to the latest successful download
-            Log.e(TAG, "Cannot read JSON file from " + URI + " Exact problem: " + e.getMessage());
-            return EMPTY_EVENTS_LIST;
-        } finally {
-            IOUtils.closeQuietly(in);
-        }
-
-        // parse
+    private Event[] parseFromJSON(final String json) {
         final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-        final Type listOfEvents = new TypeToken<Collection<Event>>() {
-        }.getType();
-        final List<Event> parsedEvents = gson.fromJson(json, listOfEvents);
+        final Type listOfEvents = new TypeToken<Event[]>() {}.getType();
+        // could throw com.google.gson.JsonSyntaxException
+        final Event[] parsedEvents = gson.fromJson(json, listOfEvents);
         return parsedEvents == null ? EMPTY_EVENTS_LIST : parsedEvents;
     }
 
     @Override
     final public int getGroupCount() {
-        return events.size();
+        return events.length;
     }
 
     @Override
@@ -72,12 +52,14 @@ public class TimelineAdapter extends BaseExpandableListAdapter {
 
     @Override
     final public Object getGroup(int i) {
-        return events.get(i).name;
+        Log.i(TAG, "Get group");
+        return events[i].name;
     }
 
     @Override
     final public Object getChild(int groupPos, int childPos) {
-        return events.get(groupPos).description;
+        Log.i(TAG, "Get child");
+        return events[groupPos].description;
     }
 
     @Override
@@ -86,23 +68,32 @@ public class TimelineAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    final public long getChildId(int i, int i1) {
+    final public long getChildId(int groupPosition, int childPosition) {
         return 0;
     }
 
     @Override
     final public boolean hasStableIds() {
-        return false;
+        return true;
     }
 
     @Override
-    final public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
-        return null;
+    final public View getGroupView(int i, boolean isExpanded, View view, ViewGroup viewGroup) {
+        Log.i(TAG, "Get group view");
+        Log.i(TAG, "Group view is "+view);
+        if(view == null)
+            view = new TextView(context);
+        return view;
     }
 
     @Override
-    final public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
-        return null;
+    final public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView , ViewGroup parent) {
+        Log.i(TAG, "Get child group view");
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.view_event_item, parent, false);
+
+        }
+        return convertView;
     }
 
     @Override

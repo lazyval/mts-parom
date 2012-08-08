@@ -3,7 +3,7 @@
     <string name="app_name">Мтс Паром</string>
     <string name="mount_sdcard">No sd card</string>
     <string name="upload_uri">http://korniltsev.ru/mts/upload</string>
-    <string name="json_events_uri">http://korniltsev.ru/p/events.json</string>
+    <string name="json_events_uri">https://raw.github.com/gist/3298043/8e2c21a4ad20e852d75e88d1be22df7e7ba4057f/events.json</string>
     <string name="make_pick_from_gallery">Pick from gallery</string>
     <string name="make_photo">Make photo</string>
     <string name="tab_events">События</string>
