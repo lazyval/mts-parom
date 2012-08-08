@@ -1,21 +1,20 @@
 package me.levelapp.parom.ui;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Toast;
 import me.levelapp.parom.R;
-import me.levelapp.parom.http.UploadPictureTask;
+import me.levelapp.parom.utils.BaseActivity;
 
-import java.io.File;
-
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends BaseActivity {
 
     private static final int REQUEST_CAMERA_CAPTURE = 0;
     private static final int REQUEST_PICK_FROM_GALLERY = 1;
@@ -36,16 +35,17 @@ public class MainActivity extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
     }
 
-    public void requestGallery(View v) {
+    public void requestGallery() {
         Intent takePictureFromGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
         startActivityForResult(takePictureFromGalleryIntent, REQUEST_PICK_FROM_GALLERY);
     }
 
-    public void requestPhoto(View v) {
+    public void requestPhoto() {
         ContentValues values = new ContentValues();
         if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED)) {
             //камера может работать только с sd карточкой.
@@ -87,7 +87,7 @@ public class MainActivity extends FragmentActivity {
                     String filePath = cursor.getString(columnIndex);
                     cursor.close();
                     //filePath
-                    new UploadPictureTask(this).execute(new File(filePath));
+                    goPhoto(filePath);
                     break;
                 }
                 case REQUEST_CAMERA_CAPTURE: {
@@ -99,8 +99,7 @@ public class MainActivity extends FragmentActivity {
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     String filePath = cursor.getString(columnIndex);
                     cursor.close();
-                    //filePath
-                    new UploadPictureTask(this).execute(new File(filePath));
+                    goPhoto(filePath);
                     break;
 
                 }
@@ -108,5 +107,30 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
+    private void goPhoto(String filePath) {
+        Intent i = new Intent(this, PhotoActivity.class);
+        i.putExtra(PhotoActivity.EXTRA_PHOTO_FILE, filePath);
+        startActivity(i);
+
+    }
+
+
+    public void makePhoto(View v ){
+        final String []items = getResources().getStringArray(R.array.dialog_photo);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Pick a color");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                if (item == 0){
+                    requestPhoto();
+                } else {
+                    requestGallery();
+                }
+            }
+        });
+         builder.create().show();
+
+    }
 
 }

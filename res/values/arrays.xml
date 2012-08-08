@@ -1,0 +1,10 @@
+<resources>
+    <string-array name="dialog_photo">
+        <item>
+            Сделать фотографию
+        </item>
+        <item>
+            Выбрать из галереи
+        </item>
+    </string-array>
+</resources>

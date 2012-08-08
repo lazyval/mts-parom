@@ -1,6 +1,8 @@
 package me.levelapp.parom.ui.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,20 +13,23 @@ import com.google.common.base.Joiner;
 import com.google.common.io.CharStreams;
 import com.google.common.io.InputSupplier;
 import me.levelapp.parom.R;
-import me.levelapp.parom.model.FileNames;
+import me.levelapp.parom.model.JSONFiles;
+import me.levelapp.parom.model.Parom;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * User: anatoly
  * Date: 07.08.12
  * Time: 14:28
  */
-public class GalleryAdapter extends ArrayAdapter  implements InputSupplier<InputStreamReader>{
+public class GalleryAdapter extends ArrayAdapter implements InputSupplier<InputStreamReader> {
 
-    private class GalleryItemHolder{
+    private class GalleryItemHolder {
         ImageView img;
         TextView event;
         TextView place;
@@ -36,8 +41,10 @@ public class GalleryAdapter extends ArrayAdapter  implements InputSupplier<Input
 
         }
     }
-    private JSONArray mData ;
+
+    private JSONArray mData;
     private Context mContext;
+
     public GalleryAdapter(Context context) {
         super(context, 0);
         mContext = context;
@@ -50,7 +57,7 @@ public class GalleryAdapter extends ArrayAdapter  implements InputSupplier<Input
 
     @Override
     public InputStreamReader getInput() throws IOException {
-        return new InputStreamReader(new BufferedInputStream(mContext.openFileInput(FileNames.PHOTOS)));
+        return new InputStreamReader(new BufferedInputStream(mContext.openFileInput(JSONFiles.PHOTOS)));
     }
 
     @Override
@@ -60,12 +67,12 @@ public class GalleryAdapter extends ArrayAdapter  implements InputSupplier<Input
 
     @Override
     public Object getItem(int position) {
-        return  mData.opt(position);
+        return mData.opt(position);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null){
+        if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.view_gallery_item, parent, false);
             convertView.setTag(new GalleryItemHolder(convertView));
         }
@@ -80,6 +87,13 @@ public class GalleryAdapter extends ArrayAdapter  implements InputSupplier<Input
         holder.event.setText(Joiner.on(' ').join(obj.optString("date"),
                 obj.optString("name")));
         holder.place.setText(obj.optString("tag"));
-
+        Bitmap b = Parom.cache().get(obj.optString("file"));
+        if (b == null) {
+            BitmapFactory.Options opt = new BitmapFactory.Options();
+            opt.inSampleSize = 3;
+            b = BitmapFactory.decodeFile(obj.optString("file"), opt);
+            Parom.cache().put(obj.optString("file"), b);
+        }
+        holder.img.setImageBitmap(b);
     }
 }

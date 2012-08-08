@@ -8,11 +8,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import com.google.common.io.ByteStreams;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import com.google.common.eventbus.EventBus;
+import me.levelapp.parom.utils.MemoryCache;
 
 /**
  * User: anatoly
@@ -23,28 +20,36 @@ public class Parom extends Application {
     private  static Parom inst;
     private ConnectivityManager mConMgr;
     private static final String TAG = "MTS-PAROM";
+    private MemoryCache cache ;
 
-
-
+    private EventBus bus ;
     @Override
     public void onCreate() {
         super.onCreate();
         inst  = this;
         mConMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         copyDebugPhotos();
+        bus = new EventBus();
+        cache = new MemoryCache();
     }
 
+    public static MemoryCache cache(){
+        return inst().cache;
+    }
+    public static EventBus bus(){
+        return inst().bus;
+    }
     private void copyDebugPhotos() {
-        try {
-            InputStream in = getAssets().open(FileNames.PHOTOS);
-            OutputStream out = openFileOutput(FileNames.PHOTOS, MODE_PRIVATE);
-            ByteStreams.copy(in, out);
-            in.close();
-            out.flush();
-            out.close();
-        } catch (IOException e) {
-            throw new RuntimeException("FTW? :O");
-        }
+//        try {
+//            InputStream in = getAssets().open(JSONFiles.PHOTOS);
+//            OutputStream out = openFileOutput(JSONFiles.PHOTOS, MODE_PRIVATE);
+//            ByteStreams.copy(in, out);
+//            in.close();
+//            out.flush();
+//            out.close();
+//        } catch (IOException e) {
+//            throw new RuntimeException("FTW? :O");
+//        }
     }
 
     public static Parom inst(){

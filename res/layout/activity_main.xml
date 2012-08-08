@@ -1,33 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
         >
-    <!--<Button-->
-            <!--android:id="@+id/btn_make_photo"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:onClick="requestPhoto"-->
-        <!--android:text="@string/make_photo"-->
-        <!--/>-->
-    <!--<Button-->
-            <!--android:id="@+id/btn_upload_from_gallery"-->
-            <!--android:layout_width="fill_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:onClick="requestGallery"-->
-            <!--android:text="@string/make_pick_from_gallery"-->
-            <!--/>-->
+    <FrameLayout
+            android:id="@+id/wrapper_title"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:background="#efefff">
+        <TextView
+                android:id="@+id/label_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/app_name"
+                android:textStyle="bold"/>
+    </FrameLayout>
+    <fragment
+
+            android:id="@+id/tab_bar"
+            android:name="me.levelapp.parom.ui.fragments.BottomTabBarFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            />
     <FrameLayout
             android:id="@+id/tab_content"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        />
-    <fragment
-        android:name="me.levelapp.parom.ui.fragments.BottomTabBarFragment"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_above="@id/tab_bar"
+            android:layout_below="@id/wrapper_title"
             />
-</LinearLayout>
+    <Button
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="PHOTO"
+            android:onClick="makePhoto"
+            />
+</RelativeLayout>
 
