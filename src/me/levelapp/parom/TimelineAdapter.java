@@ -51,7 +51,7 @@ public class TimelineAdapter extends BaseExpandableListAdapter {
         }
 
         // parse
-        final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
+        final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         final Type listOfEvents = new TypeToken<Collection<Event>>(){}.getType();
         final List<Event> parsedEvents = gson.fromJson(json, listOfEvents);
         return parsedEvents == null ? EMPTY_EVENTS_LIST : parsedEvents;
