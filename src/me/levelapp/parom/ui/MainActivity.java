@@ -10,6 +10,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import me.levelapp.parom.R;
 import me.levelapp.parom.utils.BaseActivity;
@@ -35,8 +38,12 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
+        final ImageButton photoButton = (ImageButton)findViewById(R.id.img_photo_button);
+        final Animation a = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
+        photoButton.setAnimation(a);
+        // to stop animation you need to call .clearAnimation()
+        // or possibly cancel() ???
     }
 
     public void requestGallery() {
@@ -101,7 +108,6 @@ public class MainActivity extends BaseActivity {
                     cursor.close();
                     goPhoto(filePath);
                     break;
-
                 }
             }
         }
@@ -115,7 +121,7 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    public void makePhoto(View v ){
+    public void makePhoto(View v){
         final String []items = getResources().getStringArray(R.array.dialog_photo);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -130,7 +136,6 @@ public class MainActivity extends BaseActivity {
             }
         });
          builder.create().show();
-
     }
 
 }

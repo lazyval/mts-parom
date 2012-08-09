@@ -9,7 +9,7 @@ import android.view.Window;
  * Date: 08.08.12
  * Time: 14:36
  */
-public class BaseActivity extends FragmentActivity{
+public class BaseActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
