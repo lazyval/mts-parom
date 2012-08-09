@@ -2,11 +2,11 @@ package me.levelapp.parom;
 
 import java.util.Date;
 
-final class Event implements Comparable<Event> {
-    final String name;
+public final class Event implements Comparable<Event> {
+    public final String name;
     final Date date;
     final String place;
-    final String description;
+    public final String description;
     final String[] images;
 
     public Event(

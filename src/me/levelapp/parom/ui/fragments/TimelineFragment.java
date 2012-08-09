@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import me.levelapp.parom.R;
-import me.levelapp.parom.TimelineAdapter;
+import me.levelapp.parom.ui.adapters.TimelineAdapter;
 
 /**
  * User: anatoly

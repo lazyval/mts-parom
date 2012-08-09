@@ -1,4 +1,4 @@
-package me.levelapp.parom;
+package me.levelapp.parom.ui.adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import me.levelapp.parom.Event;
+import me.levelapp.parom.R;
 import me.levelapp.parom.http.DownloadURLToStringTask;
 
 import java.lang.reflect.Type;
@@ -19,11 +21,12 @@ public class TimelineAdapter extends BaseExpandableListAdapter {
     private static final String TAG = "TimelineAdapter";
     private static final Event[] EMPTY_EVENTS_LIST = new Event[]{};
     private final Event[] events;
-
     private final Context context;
+    private final LayoutInflater inflater;
 
     public TimelineAdapter(final Context context) {
         this.context = context;
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final String jsonUrl = context.getString(R.string.json_events_uri);
         final String json = new DownloadURLToStringTask().doInBackground(jsonUrl);
         events = parseFromJSON(json);
@@ -34,7 +37,8 @@ public class TimelineAdapter extends BaseExpandableListAdapter {
 
     private Event[] parseFromJSON(final String json) {
         final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-        final Type listOfEvents = new TypeToken<Event[]>() {}.getType();
+        final Type listOfEvents = new TypeToken<Event[]>() {
+        }.getType();
         // could throw com.google.gson.JsonSyntaxException
         final Event[] parsedEvents = gson.fromJson(json, listOfEvents);
         return parsedEvents == null ? EMPTY_EVENTS_LIST : parsedEvents;
@@ -76,22 +80,30 @@ public class TimelineAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    final public View getGroupView(int i, boolean isExpanded, View view, ViewGroup viewGroup) {
-        if(view == null)
-            view = new TextView(context);
+    final public View getGroupView(int i, boolean isExpanded, View view, ViewGroup parent) {
+        if (view == null) {
+            view = inflater.inflate(R.layout.view_event_item, parent, false);
+            view.setTag(i);
+            ((TextView) view.findViewById(R.id.event_description)).setText(events[i].name);
+        }
         return view;
     }
 
     @Override
-    final public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView , ViewGroup parent) {
+    final public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.view_event_item, parent, false);
+            convertView = inflater.inflate(R.layout.view_event_item, parent, false);
         }
         return convertView;
     }
 
+    private void bindChildView(int position) {
+
+    }
+
+
     @Override
     final public boolean isChildSelectable(int i, int i1) {
-        return false;
+        return true;
     }
 }
