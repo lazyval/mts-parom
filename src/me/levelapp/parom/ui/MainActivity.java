@@ -9,19 +9,25 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
+import com.google.common.eventbus.Subscribe;
 import me.levelapp.parom.R;
+import me.levelapp.parom.model.Parom;
+import me.levelapp.parom.model.events.RotateWheelEvent;
 import me.levelapp.parom.utils.BaseActivity;
 
 public class MainActivity extends BaseActivity {
 
+    private static final String TAG = "MainActivity";
     private static final int REQUEST_CAMERA_CAPTURE = 0;
     private static final int REQUEST_PICK_FROM_GALLERY = 1;
     private static final String STATE_CAM_PHOTO_URI = "image-uri";
+
 
     private Animation rotateWheel;
     private Uri mImageUri;
@@ -33,7 +39,6 @@ public class MainActivity extends BaseActivity {
         mImageUri = Uri.parse(savedInstanceState.getString(STATE_CAM_PHOTO_URI));
     }
 
-
     /**
      * Called when the activity is first created.
      */
@@ -41,17 +46,37 @@ public class MainActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        wheel = (ImageView)findViewById(R.id.wheel_view);
+        Log.d(TAG, "Subscribing to event bus");
+        Parom.bus().register(this);
+        wheel = (ImageView) findViewById(R.id.wheel_view);
         rotateWheel = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
-        turnWheelRotationOn();
     }
 
-    final public void turnWheelRotationOn() {
-        wheel.setAnimation(rotateWheel);
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "Unsubscribing from event bus");
+        Parom.bus().unregister(this);
     }
 
-    final public void turnWheelRotationOff() {
-        wheel.clearAnimation();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "Subscribing to event bus");
+        Parom.bus().register(this);
+    }
+
+    @Subscribe
+    final public void turnWheelRotationOff(RotateWheelEvent e) {
+        Log.d(TAG, "Got a new message from bus: " + e);
+        switch (e) {
+            case TURN_WHEEL_ON:
+                wheel.setAnimation(rotateWheel);
+                break;
+            case TURN_WHEEL_OFF:
+                wheel.clearAnimation();
+                break;
+        }
     }
 
     public void requestGallery() {
@@ -125,20 +150,20 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    public void makePhoto(View v){
-        final String []items = getResources().getStringArray(R.array.dialog_photo);
+    public void makePhoto(View v) {
+        final String[] items = getResources().getStringArray(R.array.dialog_photo);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Pick a color");
         builder.setItems(items, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
-                if (item == 0){
+                if (item == 0) {
                     requestPhoto();
                 } else {
                     requestGallery();
                 }
             }
         });
-         builder.create().show();
+        builder.create().show();
     }
 }

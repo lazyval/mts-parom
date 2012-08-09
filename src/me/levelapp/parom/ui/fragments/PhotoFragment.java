@@ -38,8 +38,6 @@ public class PhotoFragment extends ListFragment {
         mAdapter = new GalleryAdapter(getActivity());
         reQuery();
         v.setAdapter(mAdapter);
-
-
         return ret;
     }
 
@@ -52,7 +50,7 @@ public class PhotoFragment extends ListFragment {
     }
 
     @Subscribe
-    public void galleryUpdated(PictureEvent e){
+    public void galleryUpdated(PictureEvent e) {
         reQuery();
     }
 

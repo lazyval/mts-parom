@@ -5,5 +5,5 @@ package me.levelapp.parom.model.events;
  * Date: 08.08.12
  * Time: 14:35
  */
-public class BaseEvent {
+public interface BaseEvent {
 }
