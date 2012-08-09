@@ -31,16 +31,28 @@
             android:layout_height="fill_parent"
             android:layout_below="@id/tab_bar"/>
 
+    <ImageView
+            android:id = "@+id/wheel_view"
+            android:scaleType="fitXY"
+            android:layout_height="200dip"
+            android:layout_width="200dip"
+            android:layout_marginLeft="-70dp"
+            android:layout_marginBottom="-70dp"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/img_wheel"/>
+
+
     <ImageButton
             android:id="@+id/img_photo_button"
             android:scaleType="fitXY"
-            android:layout_width="50dip"
-            android:layout_height="50dip"
+            android:layout_width="70dip"
+            android:layout_height="70dip"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
             android:text="PHOTO"
             android:onClick="makePhoto"
             android:src="@drawable/photo_button_pic"
-            android:background="#ffffff"/>
+            android:background="@null"/>
+
 </RelativeLayout>
 
