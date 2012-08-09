@@ -67,7 +67,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Subscribe
-    final public void turnWheelRotationOff(RotateWheelEvent e) {
+    final public void setWheelTo(RotateWheelEvent e) {
         Log.d(TAG, "Got a new message from bus: " + e);
         switch (e) {
             case TURN_WHEEL_ON:
