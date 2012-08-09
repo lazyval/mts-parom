@@ -1,11 +1,13 @@
 package me.levelapp.parom.ui.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -80,11 +82,11 @@ public class TimelineAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    final public View getGroupView(int i, boolean isExpanded, View view, ViewGroup parent) {
+    final public View getGroupView(int groupPosition, boolean isExpanded, View view, ViewGroup parent) {
         if (view == null) {
-            view = inflater.inflate(R.layout.view_event_item, parent, false);
-            view.setTag(i);
-            ((TextView) view.findViewById(R.id.event_description)).setText(events[i].name);
+            view = inflater.inflate(R.layout.view_event_item_header, parent, false);
+            view.setTag(groupPosition);
+            ((TextView) view.findViewById(R.id.event_name)).setText(events[groupPosition].name);
         }
         return view;
     }
@@ -92,14 +94,19 @@ public class TimelineAdapter extends BaseExpandableListAdapter {
     @Override
     final public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.view_event_item, parent, false);
+            convertView = inflater.inflate(R.layout.view_event_item_child, parent, false);
+            convertView.setTag(groupPosition);
+
+            ((TextView) convertView.findViewById(R.id.event_location)).setText(events[groupPosition].location);
+            ((TextView) convertView.findViewById(R.id.event_description)).setText(events[groupPosition].description);
+            ((ImageView) convertView.findViewById(R.id.event_image)).setImageBitmap(Bitmap.createBitmap(10, 20, null));
         }
         return convertView;
     }
 
-    private void bindChildView(int position) {
-
-    }
+//    private void bindChildView(int position) {
+//
+//    }
 
 
     @Override

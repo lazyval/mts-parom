@@ -4,13 +4,29 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent">
 
+    <ImageView
+        android:id="@+id/event_image"
+        android:layout_width="20dp"
+        android:layout_height="40dp"
+        android:background="#efaaef"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:scaleType="centerCrop"/>
+
     <TextView
-            android:id="@+id/event_name"
+            android:id="@+id/event_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="17dp"
             android:textStyle="bold"
-            android:textColor="#efefef">
-    </TextView>
+            android:textColor="#efefef"/>
+
+    <TextView
+            android:id="@+id/event_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17dp"
+            android:textColor="#efefef"/>
+
 
 </LinearLayout>
