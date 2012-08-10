@@ -9,7 +9,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -17,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import com.google.common.eventbus.Subscribe;
 import me.levelapp.parom.R;
+import me.levelapp.parom.http.UploadPictureTask;
 import me.levelapp.parom.model.JSONFiles;
 import me.levelapp.parom.model.Parom;
 import me.levelapp.parom.model.events.RotateWheelEvent;
@@ -53,8 +53,7 @@ public class MainActivity extends BaseActivity {
 
 
         setContentView(R.layout.activity_main);
-        Log.d(TAG, "Subscribing to event bus");
-        Parom.bus().register(this);
+
         wheel = (ImageView) findViewById(R.id.wheel_view);
         rotateWheel = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
     }
@@ -62,15 +61,18 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d(TAG, "Unsubscribing from event bus");
+
         Parom.bus().unregister(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "Subscribing to event bus");
         Parom.bus().register(this);
+
+
+        UploadPictureTask.checkUploads();
+
 
         String parom = Parom.getParomName();
         if (parom == null){
@@ -80,13 +82,15 @@ public class MainActivity extends BaseActivity {
 
     @Subscribe
     final public void setWheelTo(RotateWheelEvent e) {
-        Log.d(TAG, "Got a new message from bus: " + e);
+
         switch (e) {
             case TURN_WHEEL_ON:
                 wheel.setAnimation(rotateWheel);
+                Toast.makeText(this, getString(R.string.uploading_photo), Toast.LENGTH_LONG).show();
                 break;
             case TURN_WHEEL_OFF:
                 wheel.clearAnimation();
+                Toast.makeText(this, getString(R.string.uploaded_photo), Toast.LENGTH_LONG) .show();
                 break;
         }
     }
@@ -156,6 +160,7 @@ public class MainActivity extends BaseActivity {
             if (filePath!= null){
                 JSONFiles.storePicture(new File(filePath), this);
                 Parom.bus().post(new TabEvent(R.id.tab_photo));
+                new UploadPictureTask(this).execute(new File(filePath));
             }
         }
     }

@@ -30,8 +30,6 @@ public class UploadPictureTask extends AsyncTask<File, Void, JSONObject> {
 
     private static final String TAG = "UploadPictureTask";
     private final String mUri;
-    private final Context mContext;
-    private File mFIle;
 
     @Override
     protected void onPreExecute() {
@@ -46,12 +44,10 @@ public class UploadPictureTask extends AsyncTask<File, Void, JSONObject> {
 
     public UploadPictureTask(Context c) {
         mUri = c.getString(R.string.upload_uri);
-        mContext = c;
     }
 
     @Override
     protected JSONObject doInBackground(File... params) {
-        mFIle = params[0];
         return HttpExecutor.uploadFile(mUri, params[0]);
     }
 
