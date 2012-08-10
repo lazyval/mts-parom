@@ -1,8 +1,11 @@
 package me.levelapp.parom.ui;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import me.levelapp.parom.R;
 import me.levelapp.parom.http.UploadPictureTask;
@@ -11,6 +14,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+
+import static android.os.Environment.DIRECTORY_PICTURES;
+import static android.os.Environment.getExternalStoragePublicDirectory;
 
 /**
  * User: anatoly
@@ -23,7 +29,6 @@ public class PhotoActivity extends BaseActivity {
     private ImageView mContent;
     private String mFilePath;
     private JSONObject mObj;
-
 
 
     @Override
@@ -52,12 +57,33 @@ public class PhotoActivity extends BaseActivity {
     }
 
     private String decodeFile(String filePath) {
-
         BitmapFactory.Options opts = new BitmapFactory.Options();
         opts.inSampleSize = 3;
-        Bitmap b =BitmapFactory.decodeFile(filePath, opts);
+        Bitmap b = BitmapFactory.decodeFile(filePath, opts);
         mContent .setImageBitmap(b);
         return filePath;
-
     }
+
+    public void onShareButtonClick(View view) {
+        final Intent intent = createShareIntent();
+        startActivity(Intent.createChooser(intent, "В какой социалочке?"));
+    }
+
+
+    private Intent createShareIntent() {
+        final Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        shareIntent.setType("image/*");
+
+        // For a file in shared storage.  For data in private storage, use a ContentProvider.
+        File picture = new File(
+                getExternalStoragePublicDirectory(DIRECTORY_PICTURES),"foo.jpg"
+        );
+        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(picture));
+        return shareIntent;
+    }
+
+
+
+
 }
