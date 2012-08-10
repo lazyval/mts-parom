@@ -10,26 +10,38 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.Toast;
+import com.google.common.eventbus.Subscribe;
 import me.levelapp.parom.R;
+import me.levelapp.parom.http.UploadPictureTask;
+import me.levelapp.parom.model.JSONFiles;
 import me.levelapp.parom.model.Parom;
-import me.levelapp.parom.notifier.Notifications;
+import me.levelapp.parom.model.events.RotateWheelEvent;
+import me.levelapp.parom.model.events.TabEvent;
 import me.levelapp.parom.utils.BaseActivity;
+
+import java.io.File;
 
 public class MainActivity extends BaseActivity {
 
+    private static final String TAG = "MainActivity";
     private static final int REQUEST_CAMERA_CAPTURE = 0;
     private static final int REQUEST_PICK_FROM_GALLERY = 1;
     private static final String STATE_CAM_PHOTO_URI = "image-uri";
 
+
+    private Animation rotateWheel;
     private Uri mImageUri;
+    private ImageView wheel;
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         mImageUri = Uri.parse(savedInstanceState.getString(STATE_CAM_PHOTO_URI));
     }
-
 
     /**
      * Called when the activity is first created.
@@ -38,19 +50,58 @@ public class MainActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
         setContentView(R.layout.activity_main);
-        Notifications notice = new Notifications(Parom.inst(), this);
-        notice.notifyNewMessage("yo", "Бухач-пати", "Мега-пати в мега-клубе!");
+
+        wheel = (ImageView) findViewById(R.id.wheel_view);
+        rotateWheel = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        Parom.bus().unregister(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Parom.bus().register(this);
+
+
+        UploadPictureTask.checkUploads();
+
+
+        String parom = Parom.getParomName();
+        if (parom == null){
+            startActivity(new Intent(this, IntroActivity.class));
+        }
+    }
+
+    @Subscribe
+    final public void setWheelTo(RotateWheelEvent e) {
+
+        switch (e) {
+            case TURN_WHEEL_ON:
+                wheel.setAnimation(rotateWheel);
+                Toast.makeText(this, getString(R.string.uploading_photo), Toast.LENGTH_LONG).show();
+                break;
+            case TURN_WHEEL_OFF:
+                wheel.clearAnimation();
+                Toast.makeText(this, getString(R.string.uploaded_photo), Toast.LENGTH_LONG) .show();
+                break;
+        }
     }
 
     public void requestGallery() {
-        Intent takePictureFromGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
+        final Intent takePictureFromGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(takePictureFromGalleryIntent, REQUEST_PICK_FROM_GALLERY);
     }
 
     public void requestPhoto() {
-        ContentValues values = new ContentValues();
+        final ContentValues values = new ContentValues();
         if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED)) {
             //камера может работать только с sd карточкой.
             // Есть хак http://stackoverflow.com/questions/5252193/trouble-writing-internal-memory-android
@@ -65,8 +116,6 @@ public class MainActivity extends BaseActivity {
             //show message "no sd card"
             Toast.makeText(this, getString(R.string.mount_sdcard), Toast.LENGTH_LONG).show();
         }
-
-
     }
 
     @Override
@@ -80,6 +129,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
+            String filePath = null;
             switch (requestCode) {
                 case REQUEST_PICK_FROM_GALLERY: {
                     Uri selectedImage = data.getData();
@@ -88,10 +138,10 @@ public class MainActivity extends BaseActivity {
                             query(selectedImage, filePathColumn, null, null, null);
                     cursor.moveToFirst();
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String filePath = cursor.getString(columnIndex);
+                     filePath= cursor.getString(columnIndex);
                     cursor.close();
                     //filePath
-                    goPhoto(filePath);
+//                    goPhoto(filePath);
                     break;
                 }
                 case REQUEST_CAMERA_CAPTURE: {
@@ -101,12 +151,16 @@ public class MainActivity extends BaseActivity {
                             query(selectedImage, filePathColumn, null, null, null);
                     cursor.moveToFirst();
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String filePath = cursor.getString(columnIndex);
+                     filePath = cursor.getString(columnIndex);
                     cursor.close();
-                    goPhoto(filePath);
+//                    goPhoto(filePath);
                     break;
-
                 }
+            }
+            if (filePath!= null){
+                JSONFiles.storePicture(new File(filePath), this);
+                Parom.bus().post(new TabEvent(R.id.tab_photo));
+                new UploadPictureTask(this).execute(new File(filePath));
             }
         }
     }
@@ -115,26 +169,23 @@ public class MainActivity extends BaseActivity {
         Intent i = new Intent(this, PhotoActivity.class);
         i.putExtra(PhotoActivity.EXTRA_PHOTO_FILE, filePath);
         startActivity(i);
-
     }
 
 
-    public void makePhoto(View v ){
-        final String []items = getResources().getStringArray(R.array.dialog_photo);
+    public void makePhoto(View v) {
+        final String[] items = getResources().getStringArray(R.array.dialog_photo);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Pick a color");
         builder.setItems(items, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
-                if (item == 0){
+                if (item == 0) {
                     requestPhoto();
                 } else {
                     requestGallery();
                 }
             }
         });
-         builder.create().show();
-
+        builder.create().show();
     }
-
 }

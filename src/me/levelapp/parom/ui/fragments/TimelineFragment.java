@@ -31,19 +31,19 @@ public class TimelineFragment extends Fragment {
     final public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         final View ret = inflater.inflate(R.layout.fragment_events, container, false);
         final ExpandableListView v = (ExpandableListView) ret.findViewById(android.R.id.list);
-        mAdapter = new EventsAdapter(getActivity()) ;
+        mAdapter = new EventsAdapter(getActivity());
         reQuery();
         v.setAdapter(mAdapter);
 
         int width = getActivity().getWindowManager().getDefaultDisplay().getWidth();
 
-        v.setIndicatorBounds(width-GetDipsFromPixel(35), width-GetDipsFromPixel(5));
+        v.setIndicatorBounds(width - GetDipsFromPixel(35), width - GetDipsFromPixel(5));
 
         return ret;
     }
 
     private void reQuery() {
-        JSONArray arr = null;
+        JSONArray arr;
         try {
             arr = new JSONArray(CharStreams.toString(new InputSupplier<InputStreamReader>() {
                 @Override
@@ -58,8 +58,7 @@ public class TimelineFragment extends Fragment {
     }
 
     //Convert pixel to dip
-    public int GetDipsFromPixel(float pixels)
-    {
+    public int GetDipsFromPixel(float pixels) {
         // Get the screen's density scale
         final float scale = getResources().getDisplayMetrics().density;
         // Convert the dps to pixels, based on density scale

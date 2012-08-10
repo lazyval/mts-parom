@@ -1,17 +1,15 @@
 package me.levelapp.parom.ui.adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.common.base.Joiner;
 import me.levelapp.parom.R;
 import me.levelapp.parom.model.Parom;
+import me.levelapp.parom.utils.SmoothImageView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -23,12 +21,12 @@ import org.json.JSONObject;
 public class GalleryAdapter extends ArrayAdapter  {
 
     private class GalleryItemHolder {
-        ImageView img;
+        SmoothImageView img;
         TextView event;
         TextView place;
 
         public GalleryItemHolder(View convertView) {
-            img = (ImageView) convertView.findViewById(R.id.img_content);
+            img = (SmoothImageView) convertView.findViewById(R.id.img_content);
             event = (TextView) convertView.findViewById(R.id.label_event);
             place = (TextView) convertView.findViewById(R.id.label_place);
 
@@ -78,13 +76,15 @@ public class GalleryAdapter extends ArrayAdapter  {
         holder.event.setText(Joiner.on(' ').join(obj.optString("date"),
                 obj.optString("name")));
         holder.place.setText(obj.optString("tag"));
-        Bitmap b = Parom.cache().get(obj.optString("file"));
-        if (b == null) {
-            BitmapFactory.Options opt = new BitmapFactory.Options();
-            opt.inSampleSize = 3;
-            b = BitmapFactory.decodeFile(obj.optString("file"), opt);
-            Parom.cache().put(obj.optString("file"), b);
-        }
-        holder.img.setImageBitmap(b);
+//        Bitmap b = Parom.cache().get(obj.optString("file"));
+//        if (b == null) {
+//            BitmapFactory.Options opt = new BitmapFactory.Options();
+//            opt.inSampleSize = 3;
+//            b = BitmapFactory.decodeFile(obj.optString("file"), opt);
+//            Parom.cache().put(obj.optString("file"), b);
+//        }
+//        holder.img.setImageBitmap(b);
+        holder.img.setImageBitmap(null);
+        Parom. getImageLoader().displayFile(obj.optString("file"), holder.img);
     }
 }

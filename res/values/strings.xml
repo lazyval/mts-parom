@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Мтс Паром</string>
     <string name="mount_sdcard">No sd card</string>
@@ -13,12 +13,16 @@
     <string name="label_share">Поделиться</string>
     <string name="label_delete">Удалить</string>
     <string name="debug_name_date">19:00 Марафон коктейлей</string>
-    <string name="debug_place">Ресторан у моря\nКонкурс миисс паром</string>
+    <string name="debug_place">Ресторан у моря\nКонкурс мисс паром</string>
     <string name="debug_event_description">бесплатный второй коктейль, тетки и мужики крутота.\n
         бесплатный второй коктейль, тетки и мужики крутота.</string>
     <string name="go">Я пойду</string>
     <string name="do_not_go">Don\'t go</string>
-    <string name="debug_name">Party-Matty</string>
-    <string name="debug_message">gogogo drink sex rock</string>
-    <string name="debug_time">Right now</string>
+    <string name="my_photos">Мои фото</string>
+    <string name="other_photos">Общие фото</string>
+    <string name="leader_board">Рейтинг</string>
+    <string name="anastasiya">Принцесса Анастасия</string>
+    <string name="maria">Принцесса Мария</string>
+    <string name="uploaded_photo">Фотография загружена</string>
+    <string name="uploading_photo">Фотография загружается</string>
 </resources>

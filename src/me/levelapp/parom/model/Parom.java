@@ -4,12 +4,16 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import com.google.common.io.ByteStreams;
+import me.levelapp.parom.model.events.BaseEvent;
+import me.levelapp.parom.utils.ImageLoader;
 import me.levelapp.parom.utils.MemoryCache;
 
 import java.io.IOException;
@@ -24,10 +28,31 @@ import java.io.OutputStream;
 public class Parom extends Application {
     private  static Parom inst;
     private ConnectivityManager mConMgr;
-    private static final String TAG = "MTS-PAROM";
-    private MemoryCache cache ;
+    private static final String TAG = "MTS-PAROM-EVENT";
 
+    private ImageLoader mImageLoader;
     private EventBus bus ;
+    private static SharedPreferences prefs;
+
+    public static SharedPreferences getPrefs() {
+        return prefs;
+    }
+
+    public static final String MARIA = "maria";
+    public static final String ANASTASIA = "anastasiya";
+
+    public static String getParomName(){
+        return inst().getSharedPreferences(TAG, MODE_PRIVATE)
+                .getString("parom-name", null);
+    }
+
+    public static void storeParomName(String paromName){
+        inst().getSharedPreferences(TAG, MODE_PRIVATE)
+              .edit()
+              .putString("parom-name", paromName)
+              .commit();
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -35,11 +60,18 @@ public class Parom extends Application {
         mConMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         copyDebugPhotos();
         bus = new EventBus();
-        cache = new MemoryCache();
+        bus.register(this);
+        mImageLoader = new ImageLoader(this);
+        prefs = getSharedPreferences(TAG, MODE_PRIVATE);
+    }
+
+
+    @Subscribe public void logEvent(BaseEvent e){
+        Log.d(TAG, e.toString());
     }
 
     public static MemoryCache cache(){
-        return inst().cache;
+        return inst().mImageLoader.getMemoryCache();
     }
     public static EventBus bus(){
         return inst().bus;
@@ -92,7 +124,9 @@ public class Parom extends Application {
             TelephonyManager tManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
             return tManager.getDeviceId();
         }
-
     }
 
+    public static ImageLoader getImageLoader() {
+        return inst().mImageLoader;
+    }
 }

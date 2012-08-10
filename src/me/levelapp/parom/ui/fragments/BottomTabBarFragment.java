@@ -6,7 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
+import com.google.common.eventbus.Subscribe;
 import me.levelapp.parom.R;
+import me.levelapp.parom.model.Parom;
+import me.levelapp.parom.model.events.TabEvent;
 import me.levelapp.parom.utils.TabBarManager;
 
 /**
@@ -15,8 +18,7 @@ import me.levelapp.parom.utils.TabBarManager;
  * Time: 22:54
  */
 public class BottomTabBarFragment extends Fragment {
-
-
+    private RadioGroup mGroup;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,13 +28,13 @@ public class BottomTabBarFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
+        Parom.bus().register(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-
+        Parom.bus().unregister(this);
     }
 
     @Override
@@ -49,8 +51,8 @@ public class BottomTabBarFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_tabbar_bottom, null, false);
-        RadioGroup grp = (RadioGroup) root.findViewById(R.id.tabbar_bottom);
-        TabBarManager barManager = new TabBarManager(getActivity(), grp, R.id.tab_content);
+        mGroup = (RadioGroup) root.findViewById(R.id.tabbar_bottom);
+        TabBarManager barManager = new TabBarManager(getActivity(), mGroup, R.id.tab_content);
 
 
         barManager.add(R.id.tab_events, TimelineFragment.class);
@@ -58,12 +60,19 @@ public class BottomTabBarFragment extends Fragment {
         barManager.add(R.id.tab_achieve, AchievementsFragment.class);
 
 
-        grp.check(R.id.tab_events);
-
+//        mGroup.check(R.id.tab_events);
+        toggleTab(new TabEvent(R.id.tab_events));
 
         return root;
 
     }
+
+
+
+    @Subscribe public void toggleTab(TabEvent e){
+        mGroup.check(e.getTabId());
+    }
+
 
 }
 

@@ -5,6 +5,7 @@ package me.levelapp.parom.model.events;
  * Date: 08.08.12
  * Time: 14:35
  */
-public class PictureEvent extends BaseEvent {
+public class PictureEvent implements BaseEvent {
+
 
 }

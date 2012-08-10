@@ -7,9 +7,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
 
 /**
  * User: anatoly
@@ -21,7 +25,9 @@ public class JSONFiles
     public static final String PHOTOS = "photos.json";
     public static final String EVENTS = "events.json";
 
-    public static void addPhoto(JSONObject pic, Context c) {
+    private static final SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yy HH.mm");
+
+    private static void addPhoto(JSONObject pic, Context c) {
         JSONArray photos = readPictures(c);
         photos.put(pic);
         storePhotos(photos, c);
@@ -41,6 +47,22 @@ public class JSONFiles
 
     }
 
+    public static void storePicture(File f, Context c){
+        try {
+            JSONObject obj = new JSONObject();
+            obj.put("file", f.getAbsolutePath());
+
+            obj.put("date", formatter.format(new Date()));
+            obj.put("name", "WHATEVER");
+            if (new Random().nextInt() % 2 == 0) {
+                obj.put("tag", "WHATEVER");
+            }
+
+            JSONFiles.addPhoto(obj, c);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
     private static JSONArray readPictures(Context c){
         try {
             return new JSONArray(CharStreams.toString(new InputStreamReader(c.openFileInput(PHOTOS))));

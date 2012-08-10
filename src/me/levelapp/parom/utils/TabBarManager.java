@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RadioGroup;
+import me.levelapp.parom.model.Parom;
+import me.levelapp.parom.model.events.ShowActionsEvent;
 
 import java.util.HashMap;
 
@@ -32,7 +34,7 @@ public class TabBarManager implements RadioGroup.OnCheckedChangeListener {
     private View.OnTouchListener actionDownChecker = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                 mTabbar.check(view.getId());
             }
             return true;
@@ -66,15 +68,31 @@ public class TabBarManager implements RadioGroup.OnCheckedChangeListener {
             lastTab = newTab;
 //            transaction.setCustomAnimations(R.anim.tab_transaction, R.anim.tab_transaction);
             //transaction.addToBackStack(null);
+
+
             transaction.commit();
+
+            notifyTabChanged(lastTab);
         }
+    }
+
+    private void notifyTabChanged(TabInfo lastTab) {
+        ShowActionsEvent e;
+        if (lastTab.fragment instanceof Actionable) {
+            Actionable a = (Actionable) lastTab.fragment;
+            e = new ShowActionsEvent(a.getActionView(mActivity));
+        } else {
+            e = new ShowActionsEvent(null);
+        }
+        Parom.bus().post(e);
+
     }
 
     public void detachAll() {
         FragmentTransaction transaction = mActivity.getSupportFragmentManager().beginTransaction();
-        for (TabInfo tab : mContent.values()){
+        for (TabInfo tab : mContent.values()) {
             if (tab.fragment != null)
-            transaction.detach(tab.fragment);
+                transaction.detach(tab.fragment);
         }
     }
 
@@ -91,5 +109,9 @@ public class TabBarManager implements RadioGroup.OnCheckedChangeListener {
             this.id = id;
             this.clazz = clazz;
         }
+    }
+
+    public static interface Actionable {
+        View getActionView(FragmentActivity mActivity);
     }
 }
