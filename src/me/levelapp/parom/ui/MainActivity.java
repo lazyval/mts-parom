@@ -17,9 +17,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import com.google.common.eventbus.Subscribe;
 import me.levelapp.parom.R;
+import me.levelapp.parom.model.JSONFiles;
 import me.levelapp.parom.model.Parom;
 import me.levelapp.parom.model.events.RotateWheelEvent;
+import me.levelapp.parom.model.events.TabEvent;
 import me.levelapp.parom.utils.BaseActivity;
+
+import java.io.File;
 
 public class MainActivity extends BaseActivity {
 
@@ -113,6 +117,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
+            String filePath = null;
             switch (requestCode) {
                 case REQUEST_PICK_FROM_GALLERY: {
                     Uri selectedImage = data.getData();
@@ -121,10 +126,10 @@ public class MainActivity extends BaseActivity {
                             query(selectedImage, filePathColumn, null, null, null);
                     cursor.moveToFirst();
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String filePath = cursor.getString(columnIndex);
+                     filePath= cursor.getString(columnIndex);
                     cursor.close();
                     //filePath
-                    goPhoto(filePath);
+//                    goPhoto(filePath);
                     break;
                 }
                 case REQUEST_CAMERA_CAPTURE: {
@@ -134,11 +139,15 @@ public class MainActivity extends BaseActivity {
                             query(selectedImage, filePathColumn, null, null, null);
                     cursor.moveToFirst();
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String filePath = cursor.getString(columnIndex);
+                     filePath = cursor.getString(columnIndex);
                     cursor.close();
-                    goPhoto(filePath);
+//                    goPhoto(filePath);
                     break;
                 }
+            }
+            if (filePath!= null){
+                JSONFiles.storePicture(new File(filePath), this);
+                Parom.bus().post(new TabEvent(R.id.tab_photo));
             }
         }
     }

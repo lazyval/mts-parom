@@ -51,6 +51,12 @@ public class PhotoActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        UploadPictureTask.checkUploads();
+    }
+
     private String decodeFile(String filePath) {
 
         BitmapFactory.Options opts = new BitmapFactory.Options();

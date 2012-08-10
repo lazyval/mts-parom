@@ -7,4 +7,5 @@ package me.levelapp.parom.model.events;
  */
 public class PictureEvent implements BaseEvent {
 
+
 }

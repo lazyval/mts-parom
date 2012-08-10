@@ -4,17 +4,13 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import me.levelapp.parom.R;
-import me.levelapp.parom.model.JSONFiles;
 import me.levelapp.parom.model.Parom;
 import me.levelapp.parom.model.events.PictureEvent;
 import me.levelapp.parom.model.events.RotateWheelEvent;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Random;
+import java.util.HashSet;
 
 /**
  * User: anatoly
@@ -22,7 +18,16 @@ import java.util.Random;
  * Time: 9:52
  */
 public class UploadPictureTask extends AsyncTask<File, Void, JSONObject> {
-    private static final SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yy HH.mm");
+
+    private static HashSet<UploadPictureTask> allRunningTasks = new HashSet<UploadPictureTask>();
+
+    public static void checkUploads(){
+        if (allRunningTasks.size()>0){
+            Parom.bus().post(RotateWheelEvent.TURN_WHEEL_ON);
+        }
+    }
+
+
     private static final String TAG = "UploadPictureTask";
     private final String mUri;
     private final Context mContext;
@@ -31,7 +36,11 @@ public class UploadPictureTask extends AsyncTask<File, Void, JSONObject> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+
+        allRunningTasks.add(this);
+
         Log.d(TAG, "sending a message: " + RotateWheelEvent.TURN_WHEEL_ON);
+
         Parom.bus().post(RotateWheelEvent.TURN_WHEEL_ON);
     }
 
@@ -50,31 +59,17 @@ public class UploadPictureTask extends AsyncTask<File, Void, JSONObject> {
     protected void onPostExecute(JSONObject jsonObject) {
 
         //                {'file':'/some/path/to/file', 'date':'7 august 19:00', 'name':'Бухаловка', 'tag':'Longue Bar'}]
-        Log.d(TAG, "sending a message: " + RotateWheelEvent.TURN_WHEEL_OFF);
+
         Parom.bus().post(RotateWheelEvent.TURN_WHEEL_OFF);
-        try {
-            JSONObject obj = new JSONObject();
-            obj.put("file", mFIle.getAbsolutePath());
 
-            obj.put("date", formatter.format(new Date()));
-            obj.put("name", "WHATEVER");
-            if (new Random().nextInt() % 2 == 0) {
-                obj.put("tag", "WHATEVER");
-            }
-
-            //TODO сервер должен возвращать такой объект
-
-            JSONFiles.addPhoto(obj, mContext);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         Parom.bus().post(new PictureEvent());
+        allRunningTasks.remove(this);
     }
 
     @Override
     protected void onCancelled() {
         super.onCancelled();
-        Log.d(TAG, "sending a message: " + RotateWheelEvent.TURN_WHEEL_OFF);
+        allRunningTasks.remove(this);
         Parom.bus().post(RotateWheelEvent.TURN_WHEEL_OFF);
     }
 }
