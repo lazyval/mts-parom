@@ -224,7 +224,7 @@ public class ImageLoader {
                 return;
             if (bitmap != null) {
                 photoToLoad.imageView.display(bitmap);
-                Log.d(TAG, bitmap.getByteCount() + " ");
+                //Log.d(TAG, bitmap.getByteCount() + " ");
             } else {
 //                photoToLoad.imageView.setImageResource(stub_id);
             }

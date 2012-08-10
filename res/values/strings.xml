@@ -1,4 +1,4 @@
-﻿﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Мтс Паром</string>
     <string name="mount_sdcard">No sd card</string>
@@ -25,4 +25,7 @@
     <string name="maria">Принцесса Мария</string>
     <string name="uploaded_photo">Фотография загружена</string>
     <string name="uploading_photo">Фотография загружается</string>
+    <string name="debug_name">Заголовок</string>
+    <string name="debug_message">Описание</string>
+    <string name="debug_time">Время</string>
 </resources>

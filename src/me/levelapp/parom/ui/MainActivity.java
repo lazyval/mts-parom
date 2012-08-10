@@ -2,6 +2,7 @@ package me.levelapp.parom.ui;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +22,7 @@ import me.levelapp.parom.model.JSONFiles;
 import me.levelapp.parom.model.Parom;
 import me.levelapp.parom.model.events.RotateWheelEvent;
 import me.levelapp.parom.model.events.TabEvent;
+import me.levelapp.parom.notifier.Notifications;
 import me.levelapp.parom.utils.BaseActivity;
 
 import java.io.File;
@@ -56,6 +58,8 @@ public class MainActivity extends BaseActivity {
 
         wheel = (ImageView) findViewById(R.id.wheel_view);
         rotateWheel = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
+
+        new Notifications(Parom.inst()).notifyNewMessage("pic", "Бухач-пати", "Мега-пати в мега-клубе");
     }
 
     @Override
