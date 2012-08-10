@@ -12,6 +12,8 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Toast;
 import me.levelapp.parom.R;
+import me.levelapp.parom.model.Parom;
+import me.levelapp.parom.notifier.Notifications;
 import me.levelapp.parom.utils.BaseActivity;
 
 public class MainActivity extends BaseActivity {
@@ -37,6 +39,8 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        Notifications notice = new Notifications(Parom.inst(), this);
+        notice.notifyNewMessage("yo", "Бухач-пати", "Мега-пати в мега-клубе!");
     }
 
     public void requestGallery() {

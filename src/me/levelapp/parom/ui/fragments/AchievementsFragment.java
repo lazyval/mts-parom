@@ -25,11 +25,8 @@ public class AchievementsFragment extends ListFragment {
                 achievementsLayout = ret.findViewById(R.id.achievements_layout);
 
         makeValues();
-        Log.v("main", "values maden");
         fillGrid(achievementsLayout);
-        Log.v("main", "grid filled");
         fillHeader(achievementsLayout);
-        Log.v("main", "header filled");
 
         return ret;
     }
@@ -48,6 +45,6 @@ public class AchievementsFragment extends ListFragment {
 
     private void fillHeader(View parentView) {
         TextView headerView = (TextView) parentView.findViewById(R.id.achievement_header);
-        headerView.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_launcher, 0, 0);
+        headerView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_launcher, 0);
     }
 }

@@ -18,4 +18,7 @@
         бесплатный второй коктейль, тетки и мужики крутота.</string>
     <string name="go">Я пойду</string>
     <string name="do_not_go">Don\'t go</string>
+    <string name="debug_name">Party-Matty</string>
+    <string name="debug_message">gogogo drink sex rock</string>
+    <string name="debug_time">Right now</string>
 </resources>
