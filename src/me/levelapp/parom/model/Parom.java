@@ -47,10 +47,10 @@ public class Parom extends Application {
     }
 
     public static void storeParomName(String paromName){
-        SharedPreferences.Editor e = inst().getSharedPreferences(TAG, MODE_PRIVATE).edit();
-
-        e.putString("parom-name", paromName);
-        e.commit();
+        inst().getSharedPreferences(TAG, MODE_PRIVATE)
+              .edit()
+              .putString("parom-name", paromName)
+              .commit();
     }
 
     @Override
