@@ -49,6 +49,9 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
         setContentView(R.layout.activity_main);
         Log.d(TAG, "Subscribing to event bus");
         Parom.bus().register(this);
@@ -68,6 +71,11 @@ public class MainActivity extends BaseActivity {
         super.onResume();
         Log.d(TAG, "Subscribing to event bus");
         Parom.bus().register(this);
+
+        String parom = Parom.getParomName();
+        if (parom == null){
+            startActivity(new Intent(this, IntroActivity.class));
+        }
     }
 
     @Subscribe

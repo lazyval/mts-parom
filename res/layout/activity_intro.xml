@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+    <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            >
+        <ImageButton
+                android:id="@+id/btn_maria"
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/img_maria"
+                android:scaleType="centerCrop"
+
+                android:onClick="selectParom"
+                />
+
+        <ImageButton
+                android:id="@+id/btn_anastasia"
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/img_anastasiya"
+                android:layout_below="@id/btn_maria"
+                android:onClick="selectParom"/>
+        <TextView
+                android:id="@+id/label_anastasiya"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/anastasiya"
+                android:layout_alignBottom="@id/btn_anastasia"
+                android:background="#88000000"/>
+        <TextView
+                android:id="@+id/label_maria"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/maria"
+                android:layout_alignBottom="@id/btn_maria"
+                android:background="#88000000"/>
+    </RelativeLayout>
+
+</RelativeLayout>

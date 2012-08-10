@@ -4,6 +4,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
@@ -31,6 +32,27 @@ public class Parom extends Application {
 
     private ImageLoader mImageLoader;
     private EventBus bus ;
+    private static SharedPreferences prefs;
+
+    public static SharedPreferences getPrefs() {
+        return prefs;
+    }
+
+    public static final String MARIA = "maria";
+    public static final String ANASTASIA = "anastasiya";
+
+    public static String getParomName(){
+        return inst().getSharedPreferences(TAG, MODE_PRIVATE)
+                .getString("parom-name", null);
+    }
+
+    public static void storeParomName(String paromName){
+        SharedPreferences.Editor e = inst().getSharedPreferences(TAG, MODE_PRIVATE).edit();
+
+        e.putString("parom-name", paromName);
+        e.commit();
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -40,6 +62,7 @@ public class Parom extends Application {
         bus = new EventBus();
         bus.register(this);
         mImageLoader = new ImageLoader(this);
+        prefs = getSharedPreferences(TAG, MODE_PRIVATE);
     }
 
 
