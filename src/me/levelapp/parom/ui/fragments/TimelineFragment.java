@@ -35,9 +35,6 @@ public class TimelineFragment extends Fragment {
         reQuery();
         v.setAdapter(mAdapter);
 
-        int width = getActivity().getWindowManager().getDefaultDisplay().getWidth();
-
-        v.setIndicatorBounds(width - GetDipsFromPixel(35), width - GetDipsFromPixel(5));
 
         return ret;
     }

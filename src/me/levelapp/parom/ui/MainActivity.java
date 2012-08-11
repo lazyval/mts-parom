@@ -46,7 +46,7 @@ public class MainActivity extends BaseActivity {
     }
 
     /**
-     * Called when the activity is first created.
+     * Called event the activity is first created.
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {

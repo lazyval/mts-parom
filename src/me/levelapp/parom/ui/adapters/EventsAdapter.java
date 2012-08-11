@@ -1,7 +1,6 @@
 package me.levelapp.parom.ui.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +8,6 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.google.common.base.Joiner;
 import me.levelapp.parom.R;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,8 +21,10 @@ import org.json.JSONObject;
 public class EventsAdapter extends BaseExpandableListAdapter {
     private class EventHolder {
         public ImageView img;
-        public TextView when;
-        public TextView where;
+        public TextView event;
+        public TextView placeName;
+        public TextView placeAddress;
+        public TextView timeRemaining;
         int position;
         View root;
 
@@ -32,8 +32,10 @@ public class EventsAdapter extends BaseExpandableListAdapter {
         public EventHolder(View root) {
             this.root = root;
             img = (ImageView) root.findViewById(R.id.img);
-            when = (TextView) root.findViewById(R.id.label_name_date);
-            where = (TextView) root.findViewById(R.id.label_place);
+            event = (TextView) root.findViewById(R.id.label_event);
+            placeName = (TextView) root.findViewById(R.id.label_place);
+            placeAddress = (TextView) root.findViewById(R.id.label_address);
+            timeRemaining = (TextView) root.findViewById(R.id.label_time_remaining);
             root.setTag(this);
         }
     }
@@ -126,8 +128,11 @@ public class EventsAdapter extends BaseExpandableListAdapter {
         }
         JSONObject obj = mData.optJSONObject(i);
         EventHolder h = (EventHolder) convertView.getTag();
-        h.when.setText(Joiner.on(" : ").join(obj.optString("date"), obj.optString("name")));
-        h.where.setText(obj.optString("place"));
+        h.event.setText( obj.optString("name"));
+        h.placeName.setText(obj.optString("place"));
+        h.placeAddress.setText(obj.optString("address"));
+        h.timeRemaining.setText(" Осталось 5 минут");
+
 //        "name": "Бухаловка",
 //                "date": "2012-06-06",
 //                "place": "Lounge Bar",
@@ -135,12 +140,15 @@ public class EventsAdapter extends BaseExpandableListAdapter {
 //                "images":[
 //        ""
 //        ]
-        boolean go = obj.optBoolean("go", false);
-        if (go) {
-            h.root.setBackgroundColor(Color.GREEN);
-        } else {
-            h.root.setBackgroundColor(Color.TRANSPARENT);
-        }
+//        boolean go = obj.optBoolean("go", false);
+//        if (go) {
+//            h.root.setBackgroundColor(Color.GREEN);
+//        } else {
+//            h.root.setBackgroundColor(Color.TRANSPARENT);
+//        }
+
+
+
         h.position = i;
         return convertView;
     }
@@ -157,13 +165,13 @@ public class EventsAdapter extends BaseExpandableListAdapter {
 
         holder.desc.setText(obj.optString("description"));
         boolean go = obj.optBoolean("go", false);
-        if (go) {
-            holder.btnGo.setText(mContext.getString(R.string.do_not_go));
-            holder.root.setBackgroundColor(Color.GREEN);
-        } else {
-            holder.btnGo.setText(mContext.getString(R.string.go));
-            holder.root.setBackgroundColor(Color.TRANSPARENT);
-        }
+//        if (go) {
+//            holder.btnGo.setText(mContext.getString(R.string.do_not_go));
+//            holder.root.setBackgroundColor(Color.GREEN);
+//        } else {
+//            holder.btnGo.setText(mContext.getString(R.string.go));
+//            holder.root.setBackgroundColor(Color.TRANSPARENT);
+//        }
         return convertView;
     }
 
