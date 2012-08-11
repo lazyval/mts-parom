@@ -13,6 +13,7 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.google.common.io.ByteStreams;
 import me.levelapp.parom.model.events.BaseEvent;
+import me.levelapp.parom.ui.Notifications;
 import me.levelapp.parom.utils.ImageLoader;
 import me.levelapp.parom.utils.MemoryCache;
 
@@ -32,6 +33,7 @@ public class Parom extends Application {
 
     private ImageLoader mImageLoader;
     private EventBus bus ;
+    private Notifications notification;
     private static SharedPreferences prefs;
 
     public static SharedPreferences getPrefs() {
@@ -63,6 +65,7 @@ public class Parom extends Application {
         bus.register(this);
         mImageLoader = new ImageLoader(this);
         prefs = getSharedPreferences(TAG, MODE_PRIVATE);
+        notification = new Notifications(this);
     }
 
 
@@ -129,4 +132,10 @@ public class Parom extends Application {
     public static ImageLoader getImageLoader() {
         return inst().mImageLoader;
     }
+
+    public static Notifications getNotification() {
+        return inst().notification;
+    }
+
+
 }

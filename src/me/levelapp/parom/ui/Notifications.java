@@ -1,4 +1,4 @@
-package me.levelapp.parom;
+package me.levelapp.parom.ui;
 
 /**
  * Created with IntelliJ IDEA.
@@ -56,7 +56,7 @@ public class Notifications {
         if(r != null) {
             r.play();
         }
-            Notification notification = new Notification(R.drawable.ic_launcher, ticket, System.currentTimeMillis());
+            Notification notification = new Notification(R.drawable.icon_notification, ticket, System.currentTimeMillis());
             RemoteViews root = new RemoteViews(mAppContext.getPackageName(), R.layout.notification_single_message);
             String fileName = imageUri;//VK.downloader().getDownloadedFileName(currentMessage.getProfile().getPhoto());
 
