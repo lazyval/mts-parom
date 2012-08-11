@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="#000000">
+    <ImageView
+            android:id="@+id/img_avatar"
+            android:layout_alignParentLeft="true"
+            android:layout_width="60dip"
+            android:layout_centerVertical="true"
+            android:layout_height="fill_parent"
+            android:src="@drawable/ic_debug_party"/>
+    <TextView
+            android:id="@+id/label_name"
+            android:layout_toRightOf="@id/img_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/debug_name"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"/>
+    <TextView
+            android:id="@+id/label_msg"
+            android:layout_toRightOf="@id/img_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label_name"
+            android:textColor="#cfcfcf"
+            android:textSize="12dp"
+            android:paddingLeft="5dp"
+            android:text="@string/debug_message"/>
+
+    <TextView
+            android:id="@+id/label_date"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#cfcfcf"
+            android:text="@string/debug_time"
+            android:padding="5dp"/>
+</RelativeLayout>
