@@ -28,4 +28,8 @@
     <string name="debug_name">Заголовок</string>
     <string name="debug_message">Описание</string>
     <string name="debug_time">Время</string>
+    <string name="when"><h1>20</h1>:00\n
+    7 авг.</string>
+    <string name="question"> \? </string>
+    <string name="visit_interesting">Посетите интересные места: </string>
 </resources>

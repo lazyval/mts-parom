@@ -1,24 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
+        android:background="#00ff00"
+        >
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:background="@drawable/bg_rounded_bot_white"
+
+            >
+        <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-        android:layout_margin="3dp"
-        >
-    <Button
-            android:id="@+id/btn_go"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/go"
-            android:layout_alignParentRight="true"
-            />
-    <TextView
-            android:id="@+id/label_event_description"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/debug_event_description"
-            android:layout_toLeftOf="@id/btn_go"/>
+                android:layout_margin="3dp"
+                >
 
+            <TextView
+                    android:id="@+id/label_event_description"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/debug_event_description"
+                    android:textColor="#000000"
+                    />
+            <Button
+                    android:id="@+id/btn_go"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/go"
+                    android:layout_below="@id/label_event_description"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/btn_orange"
+                    />
 
-
-</RelativeLayout>
+        </RelativeLayout>
+    </FrameLayout>
+</FrameLayout>

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import com.google.common.io.CharStreams;
 import com.google.common.io.InputSupplier;
 import me.levelapp.parom.R;
@@ -30,7 +31,12 @@ public class TimelineFragment extends Fragment {
     @Override
     final public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         final View ret = inflater.inflate(R.layout.fragment_events, container, false);
+        TextView header = new TextView(getActivity());
+        header.setText(getString(R.string.visit_interesting));
+
         final ExpandableListView v = (ExpandableListView) ret.findViewById(android.R.id.list);
+        v.addHeaderView(header);
+
         mAdapter = new EventsAdapter(getActivity());
         reQuery();
         v.setAdapter(mAdapter);
@@ -54,12 +60,6 @@ public class TimelineFragment extends Fragment {
         mAdapter.setData(arr);
     }
 
-    //Convert pixel to dip
-    public int GetDipsFromPixel(float pixels) {
-        // Get the screen's density scale
-        final float scale = getResources().getDisplayMetrics().density;
-        // Convert the dps to pixels, based on density scale
-        return (int) (pixels * scale + 0.5f);
-    }
+
 
 }

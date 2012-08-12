@@ -12,5 +12,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:groupIndicator="@drawable/group_indicator"
+            android:scrollbarThumbVertical="@drawable/bg_scroll_bar"
+            android:scrollbarSize="5dp"
+            android:divider="@drawable/divider"
+            android:dividerHeight="1dp"
+
             />
 </LinearLayout>

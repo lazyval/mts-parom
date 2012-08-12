@@ -14,6 +14,12 @@
             android:name="me.levelapp.parom.ui.fragments.ActionBarFragment"/>
 
 
+    <FrameLayout
+            android:id="@+id/tab_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/wrapper_title"
+            android:layout_marginTop="40dp"/>
     <fragment
             android:id="@+id/tab_bar"
             android:name="me.levelapp.parom.ui.fragments.BottomTabBarFragment"
@@ -21,11 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/wrapper_title"/>
 
-    <FrameLayout
-            android:id="@+id/tab_content"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_below="@id/tab_bar"/>
+
 
     <ImageView
             android:id = "@+id/wheel_view"
@@ -35,7 +37,7 @@
             android:layout_marginLeft="-40dp"
             android:layout_marginBottom="-40dp"
             android:layout_alignParentBottom="true"
-            android:src="@drawable/ic_wheel"/>
+            android:src="@drawable/ic_shturval_shadow"/>
 
 
     <ImageButton

@@ -1,17 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="#ff0000">
 
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="fill_parent"
              android:layout_height="wrap_content"
-        android:padding="5dp">
+
+        android:id="@+id/wrapper_event"
+        android:background="@drawable/bg_rounded_white">
     <RelativeLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
+
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
 
-            android:background="@drawable/bg_rounded_white"
-            android:padding="5dp"
+
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"
+            android:paddingRight="10dp"
 
             >
         <ImageView
@@ -66,11 +79,34 @@
                 android:text="@string/debug_place"
                 android:textColor="#d1d2d3"/>
         <TextView
-            android:layout_width="40dp"
-            android:layout_height="fill_parent"
-            android:background="@drawable/label_blue"
-                android:layout_alignParentRight="true"/>
+                android:id="@+id/label_top"
+            android:layout_width="52dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/label_blue_top"
+                android:layout_alignParentRight="true"
+                android:padding="0dp"
+                android:text="@string/when"
+                android:layout_margin="0dp"
+                android:gravity="center"
+
+                android:textSize="12dp"
+                android:textColor="@color/white"/>
+        <TextView
+                android:id="@+id/label_bot"
+            android:layout_width="52dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/label_top"
+            android:layout_alignParentRight="true"
+            android:padding="0dp"
+            android:layout_margin="0dp"
+            android:gravity="center"
+            android:textSize="25dp"
+            android:text="@string/question"
+            android:textColor="@color/white"
+                android:background="@drawable/label_blue_bottom"/>
+
 
     </RelativeLayout>
 
+</FrameLayout>
 </FrameLayout>

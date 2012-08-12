@@ -20,22 +20,31 @@ import org.json.JSONObject;
  */
 public class EventsAdapter extends BaseExpandableListAdapter {
     private class EventHolder {
+        public View wrapper;
         public ImageView img;
         public TextView event;
         public TextView placeName;
         public TextView placeAddress;
         public TextView timeRemaining;
+
+        public TextView label1;
+        public TextView label2;
         int position;
         View root;
 
 
         public EventHolder(View root) {
             this.root = root;
+            wrapper = root.findViewById(R.id.wrapper_event);
             img = (ImageView) root.findViewById(R.id.img);
             event = (TextView) root.findViewById(R.id.label_event);
             placeName = (TextView) root.findViewById(R.id.label_place);
             placeAddress = (TextView) root.findViewById(R.id.label_address);
             timeRemaining = (TextView) root.findViewById(R.id.label_time_remaining);
+
+            label1 = (TextView) root.findViewById(R.id.label_top);
+            label2 = (TextView) root.findViewById(R.id.label_bot);
+
             root.setTag(this);
         }
     }
@@ -56,7 +65,7 @@ public class EventsAdapter extends BaseExpandableListAdapter {
 
         @Override
         public void onClick(View v) {
-            Button b = (Button) v;
+
             JSONObject obj = mData.optJSONObject(position);
             try {
                 if (obj.optBoolean("go", false)) {
@@ -128,7 +137,7 @@ public class EventsAdapter extends BaseExpandableListAdapter {
         }
         JSONObject obj = mData.optJSONObject(i);
         EventHolder h = (EventHolder) convertView.getTag();
-        h.event.setText( obj.optString("name"));
+        h.event.setText(obj.optString("name"));
         h.placeName.setText(obj.optString("place"));
         h.placeAddress.setText(obj.optString("address"));
         h.timeRemaining.setText(" Осталось 5 минут");
@@ -140,13 +149,23 @@ public class EventsAdapter extends BaseExpandableListAdapter {
 //                "images":[
 //        ""
 //        ]
-//        boolean go = obj.optBoolean("go", false);
-//        if (go) {
-//            h.root.setBackgroundColor(Color.GREEN);
-//        } else {
-//            h.root.setBackgroundColor(Color.TRANSPARENT);
-//        }
+        boolean go = obj.optBoolean("go", false);
+        if (go) {
+            h.label1.setBackgroundResource(R.drawable.label_orange_top);
+            h.label2.setBackgroundResource(R.drawable.label_orange_bottom);
+        } else {
+            h.label1.setBackgroundResource(R.drawable.label_blue_top);
+            h.label2.setBackgroundResource(R.drawable.label_blue_bottom);
+        }
 
+        boolean expanded = obj.optBoolean("exp", false);
+        if (expanded) {
+            h.wrapper.setBackgroundResource(R.drawable.bg_rounded_top_white);
+
+        } else {
+            h.wrapper.setBackgroundResource(R.drawable.bg_rounded_white);
+
+        }
 
 
         h.position = i;
@@ -164,7 +183,8 @@ public class EventsAdapter extends BaseExpandableListAdapter {
         holder.position = i;
 
         holder.desc.setText(obj.optString("description"));
-        boolean go = obj.optBoolean("go", false);
+
+
 //        if (go) {
 //            holder.btnGo.setText(mContext.getString(R.string.do_not_go));
 //            holder.root.setBackgroundColor(Color.GREEN);
@@ -172,11 +192,32 @@ public class EventsAdapter extends BaseExpandableListAdapter {
 //            holder.btnGo.setText(mContext.getString(R.string.go));
 //            holder.root.setBackgroundColor(Color.TRANSPARENT);
 //        }
+
         return convertView;
     }
 
     @Override
     public boolean isChildSelectable(int i, int i1) {
         return false;
+    }
+
+    @Override
+    public void onGroupCollapsed(int groupPosition) {
+        super.onGroupCollapsed(groupPosition);
+        try {
+            mData.optJSONObject(groupPosition).put("exp", false);
+        } catch (JSONException ignored) {
+        }
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void onGroupExpanded(int groupPosition) {
+        super.onGroupExpanded(groupPosition);
+        try {
+            mData.optJSONObject(groupPosition).put("exp", true);
+        } catch (JSONException ignored) {
+        }
+        notifyDataSetChanged();
     }
 }
