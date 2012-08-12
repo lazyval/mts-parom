@@ -25,4 +25,12 @@
             >
 
     </FrameLayout>
+
+    <me.levelapp.parom.ui.imageview.ShipImageView
+            android:id="@+id/ship"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_ship"
+            android:layout_alignParentBottom="true"
+            />
 </RelativeLayout>

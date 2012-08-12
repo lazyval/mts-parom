@@ -11,6 +11,7 @@
             android:layout_width="60dip"
             android:layout_centerVertical="true"
             android:layout_height="fill_parent"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_debug_party"/>
     <TextView
             android:id="@+id/label_name"

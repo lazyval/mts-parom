@@ -20,6 +20,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.RemoteViews;
 import me.levelapp.parom.R;
 import me.levelapp.parom.model.Parom;
@@ -69,7 +70,7 @@ public class Notifications {
             options.inJustDecodeBounds = true;
 
             // Calculate inSampleSize
-            options.inSampleSize = calculateInSampleSize(options, 60);
+            options.inSampleSize = calculateInSampleSize(options, MainActivity.getScreenDensity() * 60);
 
             // Decode bitmap with inSampleSize set
             options.inJustDecodeBounds = false;
@@ -80,7 +81,7 @@ public class Notifications {
             options.inJustDecodeBounds = true;
 
             // Calculate inSampleSize
-            options.inSampleSize = calculateInSampleSize(options, 60);
+            options.inSampleSize = calculateInSampleSize(options, MainActivity.getScreenDensity() * 60);
 
             // Decode bitmap with inSampleSize set
             options.inJustDecodeBounds = false;
@@ -107,13 +108,13 @@ public class Notifications {
             mManager.notify(R.string.debug_name, notification);
     }
 
-    private int calculateInSampleSize(BitmapFactory.Options options, int reqWidth) {
+    private int calculateInSampleSize(BitmapFactory.Options options, float reqWidth) {
         // Raw height and width of image
         final int width = options.outWidth;
         int inSampleSize = 1;
 
         if(width > reqWidth) {
-            inSampleSize = Math.round((float)width / (float)reqWidth);
+            inSampleSize = Math.round((float)width / reqWidth);
         }
 
         return inSampleSize;

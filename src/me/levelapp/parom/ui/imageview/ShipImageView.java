@@ -2,9 +2,9 @@ package me.levelapp.parom.ui.imageview;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
-import me.levelapp.parom.ui.ShipView;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,7 +14,7 @@ import me.levelapp.parom.ui.ShipView;
  * To change this template use File | Settings | File Templates.
  */
 public class ShipImageView extends ImageView {
-    private ShipView parent;
+    private int pathLength, pastMinutes, estimatedMinutes=1;
 
     public ShipImageView(Context context) {
         super(context);
@@ -28,15 +28,39 @@ public class ShipImageView extends ImageView {
         super(context, attrs, defStyle);
     }
 
-    public void setParentView(ShipView parent) {
-        this.parent=parent;
-    }
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        if(getWidth()>0) {
-            parent.CreateShip(getWidth());
+        if((getWidth()>0) && (pathLength>getWidth())) {
+            this.setNewShipPosition(getWidth());
         }
+    }
+
+    public void setTime(int pastMinutes, int estimatedMinutes) {
+        if((pastMinutes<=estimatedMinutes) && (pastMinutes>=0) && (estimatedMinutes!=0)) {
+            this.pastMinutes=pastMinutes;
+            this.estimatedMinutes=estimatedMinutes;
+        }
+    }
+
+    public void setParams(int pathLength) {
+        this.pathLength=pathLength;
+    }
+
+    private void setNewShipPosition(int shipWidth) {
+        /*int xEnd=(int) (pathLength - (double) shipWidth / 2), xStart=(int) ((double) shipWidth / 2);
+        double proportionOfTraversedWay = ((double)pastMinutes) / estimatedMinutes;
+
+        int currX = (int) (xStart + Math.round((xEnd - xStart) * proportionOfTraversedWay) - (double)shipWidth / 2);  */
+        int xEnd=pathLength-shipWidth, xStart=0;
+        double proportionOfTraversedWay = ((double)pastMinutes) / estimatedMinutes;
+        int currX = (int)(xStart + Math.round((xEnd - xStart) * proportionOfTraversedWay));
+
+        TranslateAnimation animation = new TranslateAnimation(currX, currX, Animation.RELATIVE_TO_SELF,
+                Animation.RELATIVE_TO_SELF);
+        animation.setDuration(0);
+        animation.setFillAfter(true);
+
+        this.startAnimation(animation);
     }
 }

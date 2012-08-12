@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -24,6 +25,7 @@ import me.levelapp.parom.model.JSONFiles;
 import me.levelapp.parom.model.Parom;
 import me.levelapp.parom.model.events.RotateWheelEvent;
 import me.levelapp.parom.model.events.TabEvent;
+import me.levelapp.parom.ui.imageview.ShipImageView;
 import me.levelapp.parom.utils.BaseActivity;
 
 import java.io.File;
@@ -39,6 +41,9 @@ public class MainActivity extends BaseActivity {
     private Animation rotateWheel;
     private Uri mImageUri;
     private ImageView wheel;
+    private ShipImageView shipImage;
+    private int screenWidth;
+    private static float screenDensity;
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -56,12 +61,15 @@ public class MainActivity extends BaseActivity {
 
 
         setContentView(R.layout.activity_main);
+        determineScreenParams();
 
         wheel = (ImageView) findViewById(R.id.wheel_view);
         rotateWheel = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
 
 
         Parom.getNotification().notifyNewMessage("pic", "Бухач-пати", "Мега-пати в мега-клубе");
+        createShipImage();
+        shipImage.setTime(240, 480);
     }
 
     @Override
@@ -75,8 +83,6 @@ public class MainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         Parom.bus().register(this);
-
-
         UploadPictureTask.checkUploads();
 
 
@@ -84,6 +90,8 @@ public class MainActivity extends BaseActivity {
         if (parom == null){
             startActivity(new Intent(this, IntroActivity.class));
         }
+
+        shipImage.setTime(120, 480);
     }
 
     @Subscribe
@@ -193,5 +201,21 @@ public class MainActivity extends BaseActivity {
             }
         });
         builder.create().show();
+    }
+
+    private void createShipImage() {
+        shipImage = (ShipImageView) findViewById(R.id.ship);
+        shipImage.setParams(screenWidth);
+    }
+
+    private void determineScreenParams() {
+        DisplayMetrics metrics = new DisplayMetrics();
+        this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        screenDensity = (float)(metrics.densityDpi) / 120;
+        screenWidth = metrics.widthPixels;
+    }
+
+    public static float getScreenDensity() {
+        return screenDensity;
     }
 }
