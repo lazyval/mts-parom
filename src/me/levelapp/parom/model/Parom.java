@@ -27,12 +27,12 @@ import java.io.OutputStream;
  * Time: 9:30
  */
 public class Parom extends Application {
-    private  static Parom inst;
+    private static Parom inst;
     private ConnectivityManager mConMgr;
     private static final String TAG = "MTS-PAROM-EVENT";
 
     private ImageLoader mImageLoader;
-    private EventBus bus ;
+    private EventBus bus;
     private Notifications notification;
     private static SharedPreferences prefs;
 
@@ -43,25 +43,24 @@ public class Parom extends Application {
     public static final String MARIA = "maria";
     public static final String ANASTASIA = "anastasiya";
 
-    public static String getParomName(){
+    public static String getParomName() {
         return inst().getSharedPreferences(TAG, MODE_PRIVATE)
                 .getString("parom-name", null);
     }
 
-    public static void storeParomName(String paromName){
+    public static void storeParomName(String paromName) {
         inst().getSharedPreferences(TAG, MODE_PRIVATE)
-              .edit()
-              .putString("parom-name", paromName)
-              .commit();
+                .edit()
+                .putString("parom-name", paromName)
+                .commit();
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        inst  = this;
+        inst = this;
         mConMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        copyDebugPhotos(JSONFiles.EVENTS);
-        copyDebugPhotos("geometria.json");
+        copyDebugPhotos();
         bus = new EventBus();
         bus.register(this);
         mImageLoader = new ImageLoader(this);
@@ -70,30 +69,33 @@ public class Parom extends Application {
     }
 
 
-    @Subscribe public void logEvent(BaseEvent e){
+    @Subscribe
+    public void logEvent(BaseEvent e) {
         Log.d(TAG, e.toString());
     }
 
-    public static MemoryCache cache(){
+    public static MemoryCache cache() {
         return inst().mImageLoader.getMemoryCache();
     }
-    public static EventBus bus(){
+
+    public static EventBus bus() {
         return inst().bus;
     }
-    private void copyDebugPhotos(String fileNmae) {
+
+    private void copyDebugPhotos() {
         try {
-            InputStream in = getAssets().open(fileNmae);
-            OutputStream out = openFileOutput(fileNmae, MODE_PRIVATE);
+            InputStream in = getAssets().open(JSONFiles.EVENTS);
+            OutputStream out = openFileOutput(JSONFiles.EVENTS, MODE_PRIVATE);
             ByteStreams.copy(in, out);
             in.close();
             out.flush();
             out.close();
         } catch (IOException e) {
-            throw new RuntimeException("FTW? :O");
+//            throw new RuntimeException("Can't copy debug photos. Exact message is: "+e.getMessage());
         }
     }
 
-    public static Parom inst(){
+    public static Parom inst() {
         return inst;
     }
 
@@ -116,16 +118,16 @@ public class Parom extends Application {
     }
 
     public boolean isWifiAvailable() {
-        return  mConMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
+        return mConMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
     }
 
-    public String getDeviceId(){
+    public String getDeviceId() {
         AccountManager am = AccountManager.get(this);
         Account[] googleAccounts = am.getAccountsByType("com.google");
-        if (googleAccounts.length > 0){
+        if (googleAccounts.length > 0) {
             return googleAccounts[0].name;
         } else {
-            TelephonyManager tManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+            TelephonyManager tManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
             return tManager.getDeviceId();
         }
     }

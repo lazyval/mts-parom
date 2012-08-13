@@ -13,7 +13,8 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.*;
+import android.widget.ImageView;
+import android.widget.Toast;
 import com.google.common.eventbus.Subscribe;
 import me.levelapp.parom.R;
 import me.levelapp.parom.http.UploadPictureTask;
@@ -32,7 +33,6 @@ public class MainActivity extends BaseActivity {
     private static final int REQUEST_CAMERA_CAPTURE = 0;
     private static final int REQUEST_PICK_FROM_GALLERY = 1;
     private static final String STATE_CAM_PHOTO_URI = "image-uri";
-    private static final int TIME_IN_WAY = 320, ESTIMATED_TIME = 480;
 
 
     private Animation rotateWheel;
@@ -54,9 +54,6 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
         setContentView(R.layout.activity_main);
         determineScreenParams();
 
@@ -64,10 +61,9 @@ public class MainActivity extends BaseActivity {
         rotateWheel = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
 
 
-        Parom.getNotification().notifyNewMessage("pic", "Бортовая Вечеринка", "Зажигай весь вечер и всю ночь напролёт!");
-
+        Parom.getNotification().notifyNewMessage("pic", "Бухач-пати", "Мега-пати в мега-клубе");
         createShipImage();
-        shipImage.setTime(TIME_IN_WAY, ESTIMATED_TIME);
+        shipImage.setTime(240, 480);
     }
 
     @Override
@@ -85,11 +81,11 @@ public class MainActivity extends BaseActivity {
 
 
         String parom = Parom.getParomName();
-        if (parom == null){
+        if (parom == null) {
             startActivity(new Intent(this, IntroActivity.class));
         }
 
-        shipImage.setTime(TIME_IN_WAY, ESTIMATED_TIME);
+        shipImage.setTime(120, 480);
     }
 
     @Subscribe
@@ -102,7 +98,7 @@ public class MainActivity extends BaseActivity {
                 break;
             case TURN_WHEEL_OFF:
                 wheel.clearAnimation();
-                Toast.makeText(this, getString(R.string.uploaded_photo), Toast.LENGTH_LONG) .show();
+                Toast.makeText(this, getString(R.string.uploaded_photo), Toast.LENGTH_LONG).show();
                 break;
         }
     }
@@ -150,7 +146,7 @@ public class MainActivity extends BaseActivity {
                             query(selectedImage, filePathColumn, null, null, null);
                     cursor.moveToFirst();
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                     filePath= cursor.getString(columnIndex);
+                    filePath = cursor.getString(columnIndex);
                     cursor.close();
                     //filePath
 //                    goPhoto(filePath);
@@ -163,13 +159,13 @@ public class MainActivity extends BaseActivity {
                             query(selectedImage, filePathColumn, null, null, null);
                     cursor.moveToFirst();
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                     filePath = cursor.getString(columnIndex);
+                    filePath = cursor.getString(columnIndex);
                     cursor.close();
 //                    goPhoto(filePath);
                     break;
                 }
             }
-            if (filePath!= null){
+            if (filePath != null) {
                 JSONFiles.storePicture(new File(filePath), this);
                 Parom.bus().post(new TabEvent(R.id.tab_photo));
                 new UploadPictureTask(this).execute(new File(filePath));
@@ -180,6 +176,11 @@ public class MainActivity extends BaseActivity {
     private void goPhoto(String filePath) {
         Intent i = new Intent(this, PhotoActivity.class);
         i.putExtra(PhotoActivity.EXTRA_PHOTO_FILE, filePath);
+        startActivity(i);
+    }
+
+    public void startMapActivity(View v) {
+        final Intent i = new Intent(this, MapActivity.class);
         startActivity(i);
     }
 
@@ -201,15 +202,16 @@ public class MainActivity extends BaseActivity {
         builder.create().show();
     }
 
+
     private void createShipImage() {
         shipImage = (ShipImageView) findViewById(R.id.ship);
-        shipImage.setParams(screenWidth, (ImageView) findViewById(R.id.water_image));
+        shipImage.setParams(screenWidth);
     }
 
     private void determineScreenParams() {
         DisplayMetrics metrics = new DisplayMetrics();
         this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        screenDensity = (float)(metrics.densityDpi) / 120;
+        screenDensity = (float) (metrics.densityDpi) / 120;
         screenWidth = metrics.widthPixels;
     }
 

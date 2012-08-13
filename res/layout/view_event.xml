@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:id="@+id/wrapper_wrapper"
              android:layout_width="fill_parent"
              android:layout_height="wrap_content"
              android:paddingTop="5dp"
              android:paddingLeft="5dp"
              android:paddingRight="5dp"
-             >
+             android:background="#ff0000">
+
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
                  android:layout_width="fill_parent"
@@ -17,15 +16,18 @@
                  android:background="@drawable/bg_rounded_white">
         <RelativeLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
+
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+
+
                 android:paddingTop="5dp"
                 android:paddingLeft="5dp"
                 android:paddingBottom="5dp"
                 android:paddingRight="10dp"
 
                 >
-            <me.levelapp.parom.utils.SmoothImageView
+            <ImageView
                     android:id="@+id/img"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
@@ -54,8 +56,7 @@
                     android:layout_below="@id/label_event"
                     android:textSize="14dp"
                     android:text="@string/debug_place"
-                    android:textColor="#616161"
-                    android:onClick="lookAtTheMap"/>
+                    android:textColor="#616161"/>
             <TextView
                     android:id="@+id/label_address"
                     android:layout_width="fill_parent"
@@ -67,7 +68,7 @@
                     android:textColor="#86ad88"
                     android:drawableLeft="@drawable/icon_paluba"
                     android:drawablePadding="5dp"
-                    android:onClick="lookAtTheMap"
+                    android:onClick="startMapActivity"
                     />
             <TextView
                     android:id="@+id/label_time_remaining"
@@ -99,8 +100,8 @@
                     android:layout_alignParentRight="true"
                     android:padding="0dp"
                     android:layout_margin="0dp"
-                    android:gravity="center_horizontal"
-                    android:textSize="12dp"
+                    android:gravity="center"
+                    android:textSize="25dp"
                     android:text="@string/question"
                     android:textColor="@color/white"
                     android:background="@drawable/label_blue_bottom"/>

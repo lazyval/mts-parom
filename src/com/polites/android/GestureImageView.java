@@ -29,13 +29,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
-import me.levelapp.parom.utils.ImageLoader;
 
 import java.io.InputStream;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-public class GestureImageView extends ImageView implements ImageLoader.Displayable {
+public class GestureImageView extends ImageView {
 
     public static final String GLOBAL_NS = "http://schemas.android.com/apk/res/android";
     public static final String LOCAL_NS = "http://schemas.polites.com/android";
@@ -694,10 +693,5 @@ public class GestureImageView extends ImageView implements ImageLoader.Displayab
 
     public int getDeviceOrientation() {
         return deviceOrientation;
-    }
-
-    @Override
-    public void display(Bitmap b) {
-        setImageBitmap(b);
     }
 }
