@@ -6,9 +6,9 @@
               android:orientation="horizontal">
 
     <TextView
+            style="@style/CodeFont"
             android:id="@+id/label_achivements"
             android:layout_width="70dip"
-            android:layout_height="wrap_content"
             android:drawableTop="@drawable/achive_small_ship"
             android:padding="4dip"/>
 
