@@ -205,7 +205,7 @@ public class MainActivity extends BaseActivity {
 
     private void createShipImage() {
         shipImage = (ShipImageView) findViewById(R.id.ship);
-        shipImage.setParams(screenWidth);
+        shipImage.setParams(screenWidth, (ImageView)findViewById(R.id.water_image));
     }
 
     private void determineScreenParams() {
