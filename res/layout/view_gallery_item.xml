@@ -13,7 +13,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/img_content"
-            android:background="#88000000"
+            android:background="@drawable/bg_gallery_item"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             >

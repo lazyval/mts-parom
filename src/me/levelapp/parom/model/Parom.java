@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
@@ -61,7 +60,8 @@ public class Parom extends Application {
         super.onCreate();
         inst  = this;
         mConMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        copyDebugPhotos();
+        copyDebugPhotos(JSONFiles.EVENTS);
+        copyDebugPhotos("geometria.json");
         bus = new EventBus();
         bus.register(this);
         mImageLoader = new ImageLoader(this);
@@ -80,10 +80,10 @@ public class Parom extends Application {
     public static EventBus bus(){
         return inst().bus;
     }
-    private void copyDebugPhotos() {
+    private void copyDebugPhotos(String fileNmae) {
         try {
-            InputStream in = getAssets().open(JSONFiles.EVENTS);
-            OutputStream out = openFileOutput(JSONFiles.EVENTS, MODE_PRIVATE);
+            InputStream in = getAssets().open(fileNmae);
+            OutputStream out = openFileOutput(fileNmae, MODE_PRIVATE);
             ByteStreams.copy(in, out);
             in.close();
             out.flush();

@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.google.common.eventbus.Subscribe;
 import me.levelapp.parom.R;
@@ -54,7 +53,7 @@ public class ActionBarFragment extends Fragment {
 
     private void setupLogoFont(View parentView) {
         Typeface tf = Typeface.createFromAsset(Parom.inst().getAssets(), "fonts/georgiaz.ttf");
-        TextView tv = (TextView) parentView.findViewById(R.id.text_logo);
+        TextView tv = (TextView) parentView.findViewById(R.id   .text_logo);
         tv.setTypeface(tf);
     }
 }

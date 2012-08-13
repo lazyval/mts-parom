@@ -29,14 +29,13 @@ public class TimelineFragment extends Fragment {
     private static EventsAdapter mAdapter;
 
     @Override
-    final public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
+    final public View onCreateView(final LayoutInflater inflater , final ViewGroup container, final Bundle savedInstanceState) {
         final View ret = inflater.inflate(R.layout.fragment_events, container, false);
-        TextView header = new TextView(getActivity());
-        header.setText(getString(R.string.visit_interesting));
-
+        TextView header = (TextView) inflater.inflate(R.layout.view_events_header, null, false);
+        TextView footer = (TextView) inflater.inflate(R.layout.view_footer_mts, null, false);
         final ExpandableListView v = (ExpandableListView) ret.findViewById(android.R.id.list);
         v.addHeaderView(header);
-
+        v.addFooterView(footer);
         mAdapter = new EventsAdapter(getActivity());
         reQuery();
         v.setAdapter(mAdapter);

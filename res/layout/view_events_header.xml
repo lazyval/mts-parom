@@ -4,7 +4,6 @@
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
-              android:textColor="#3a3a3a"
-        >
-
-</TextView>
+        android:text="@string/visit_interesting"
+        android:padding="10dp"
+        android:textColor="#131313"/>

@@ -42,8 +42,9 @@ public class GalleryAdapter extends ArrayAdapter  {
 
 
     }
-
-    public void setData(JSONArray arr){
+    boolean  fromInternet;
+    public void setData(JSONArray arr, boolean b){
+        fromInternet = b;
         mData = arr;
         notifyDataSetChanged();
     }
@@ -85,6 +86,11 @@ public class GalleryAdapter extends ArrayAdapter  {
 //        }
 //        holder.img.setImageBitmap(b);
         holder.img.setImageBitmap(null);
-        Parom. getImageLoader().displayFile(obj.optString("file"), holder.img);
+        if (fromInternet){
+            Parom. getImageLoader().displayImage(obj.optString("file"), holder.img, 400);
+        } else {
+            Parom. getImageLoader().displayFile(obj.optString("file"), holder.img);
+        }
+
     }
 }

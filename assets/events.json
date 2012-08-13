@@ -1,24 +1,32 @@
 [{
-	'name': 'Бухаловка', 
+	'name': 'Шведский ужин',
 	'date': '2012-06-06',
-	'place': 'Lounge Bar',
+	'place': ' Ресторат 7 морей',
 	'address':"8 палуба",
-	'description': 'Выпей сколько сможешь!'
-
+	'description': 'Кушай сколько влезет!'   ,
+    'img':'http://korniltsev.ru/p/jAvG5IN.png'
 	},{
-	'name': 'Ужин', 
+	'name': 'Мега заплыв',
 	'date': '2012-06-06',
-	'place': 'Ресторан "У моря"',
-	'address':"Палуба 4, каюта 10",
-	'description': 'Зажигательные танцы, бла бла бла'
-
+	'place': 'Аквазона',
+	'address':"Палуба 4,",
+	'description': 'Победителю приз... TODO'  ,
+    'img' :'http://korniltsev.ru/p/jAvFEAw.png'
 	} ,
 	{
-    	'name': 'Пати на кровати',
+    	'name': 'Вечеринка',
     	'date': '2012-06-06',
-    	'place': 'Ресторан "У моря"',
+    	'place': 'Rabbit BAr',
     	'address':"9 палуба",
-    	'description': 'Зажигательные танцы, бла бла бла'
-
-    	}
+    	'description': 'Трезвым не уйдет никто ... TODO',
+'img':'http://korniltsev.ru/p/jAvG0EN.png'
+    	},
+    	{
+            	'name': 'Кино "Тэд',
+            	'date': '2012-06-06',
+            	'place': 'Кинотеатр',
+            	'address':"9 палуба",
+            	'description': 'Пошлая комедия о похотливом плюшевом мишке',
+'img':'http://korniltsev.ru/p/jAvFN5W.png'
+            	}
 ]

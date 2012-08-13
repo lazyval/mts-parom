@@ -46,6 +46,8 @@ public class PhotoFragment extends ListFragment implements TabBarManager.Actiona
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View ret = inflater.inflate(R.layout.fragment_photos, container, false);
         mList = (ListView) ret.findViewById(android.R.id.list);
+        TextView footer = (TextView) inflater.inflate(R.layout.view_footer_mts, null, false);
+        mList.addFooterView(footer);
         mAdapter = new GalleryAdapter(getActivity());
 
 
@@ -80,21 +82,31 @@ public class PhotoFragment extends ListFragment implements TabBarManager.Actiona
                     data = new JSONArray();
                 }
                 mAdapter = new GalleryAdapter(getActivity());
-                mAdapter.setData(data);
+                mAdapter.setData(data, false);
                 mList.setAdapter(mAdapter);
                 break;
             }
-            case OTHER: {
-                JSONArray data = new JSONArray();
+            case GEOMETRIA: {
+                JSONArray data;
+                try {
+                    data = new JSONArray(CharStreams.toString(new InputSupplier<InputStreamReader>() {
+                        @Override
+                        public InputStreamReader getInput() throws IOException {
+                            return new InputStreamReader(new BufferedInputStream(getActivity().openFileInput("geometria.json")));
+                        }
+                    }));
+                } catch (Exception e) {
+                    data = new JSONArray();
+                }
                 mAdapter = new GalleryAdapter(getActivity());
-                mAdapter.setData(data);
+                mAdapter.setData(data, true);
                 mList.setAdapter(mAdapter);
                 break;
             }
-            case LEADER_BOARD:{
+            case DANCE:{
                 JSONArray data = new JSONArray();
                 mAdapter = new GalleryAdapter(getActivity());
-                mAdapter.setData(data);
+                mAdapter.setData(data, false);
                 mList.setAdapter(mAdapter);
                 break;
             }
@@ -106,7 +118,10 @@ public class PhotoFragment extends ListFragment implements TabBarManager.Actiona
     @Override
     public View getActionView(FragmentActivity activity) {
         Spinner s = new Spinner(activity);
+        s.setBackgroundResource(R.drawable.bg_spinner);
+
         final DropDownGalleryAdapter adapter = new DropDownGalleryAdapter(activity);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s.setAdapter(adapter);
         s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -123,7 +138,7 @@ public class PhotoFragment extends ListFragment implements TabBarManager.Actiona
     }
 
     public static enum GalleryType {
-        MY, OTHER, LEADER_BOARD
+        MY, GEOMETRIA, DANCE
 
 
     }
@@ -166,10 +181,10 @@ public class PhotoFragment extends ListFragment implements TabBarManager.Actiona
                     return getContext().getString(R.string.my_photos);
                 }
                 case 1: {
-                    return getContext().getString(R.string.other_photos);
+                    return getContext().getString(R.string.geometria);
                 }
                 case 2: {
-                    return getContext().getString(R.string.leader_board);
+                    return getContext().getString(R.string.dance);
                 }
                 default:
                     return null;

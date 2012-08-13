@@ -6,9 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import me.levelapp.parom.R;
+import me.levelapp.parom.model.Parom;
+import me.levelapp.parom.utils.SmoothImageView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,8 +21,9 @@ import org.json.JSONObject;
  */
 public class EventsAdapter extends BaseExpandableListAdapter {
     private class EventHolder {
+        public View wrapperWrapper;
         public View wrapper;
-        public ImageView img;
+        public SmoothImageView img;
         public TextView event;
         public TextView placeName;
         public TextView placeAddress;
@@ -35,8 +37,9 @@ public class EventsAdapter extends BaseExpandableListAdapter {
 
         public EventHolder(View root) {
             this.root = root;
+
             wrapper = root.findViewById(R.id.wrapper_event);
-            img = (ImageView) root.findViewById(R.id.img);
+            img = (SmoothImageView) root.findViewById(R.id.img);
             event = (TextView) root.findViewById(R.id.label_event);
             placeName = (TextView) root.findViewById(R.id.label_place);
             placeAddress = (TextView) root.findViewById(R.id.label_address);
@@ -148,26 +151,36 @@ public class EventsAdapter extends BaseExpandableListAdapter {
 //                "images":[
 //        ""
 //        ]
+
         boolean go = obj.optBoolean("go", false);
         if (go) {
             h.label1.setBackgroundResource(R.drawable.label_orange_top);
             h.label2.setBackgroundResource(R.drawable.label_orange_bottom);
+
+            h.label2.setText("Я иду");
         } else {
             h.label1.setBackgroundResource(R.drawable.label_blue_top);
             h.label2.setBackgroundResource(R.drawable.label_blue_bottom);
+            h.label2.setText("?");
+
         }
 
+        int left = h.root.getPaddingLeft();
+        int right = h.root.getPaddingRight();
+        int top = h.root.getPaddingTop();
         boolean expanded = obj.optBoolean("exp", false);
         if (expanded) {
             h.wrapper.setBackgroundResource(R.drawable.bg_rounded_top_white);
-
+            h.root.setPadding(left, top, right, 0);
         } else {
             h.wrapper.setBackgroundResource(R.drawable.bg_rounded_white);
-
+            h.root.setPadding(left, top, right, 10);
         }
 
 
         h.position = i;
+
+        Parom.getImageLoader().displayURI(obj.optString("img"), h.img);
         return convertView;
     }
 
@@ -188,6 +201,7 @@ public class EventsAdapter extends BaseExpandableListAdapter {
 //            holder.btnGo.setText(mContext.getString(R.string.go));
 //            holder.root.setBackgroundColor(Color.TRANSPARENT);
 //        }
+
         return convertView;
     }
 

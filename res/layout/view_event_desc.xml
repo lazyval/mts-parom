@@ -5,7 +5,7 @@
         android:paddingBottom="5dp"
         android:paddingRight="5dp"
         android:paddingLeft="5dp"
-        android:background="#00ff00"
+
         >
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
