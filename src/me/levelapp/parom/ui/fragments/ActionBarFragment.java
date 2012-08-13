@@ -25,7 +25,6 @@ public class ActionBarFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View ret = inflater.inflate(R.layout.fragment_action_bar, container, false);
         mActions = (FrameLayout) ret.findViewById(R.id.wrapper_action);
-        setupLogoFont(ret);
         return ret;
     }
 
@@ -49,11 +48,5 @@ public class ActionBarFragment extends Fragment {
         } else {
             mActions.addView(e.getActionView());
         }
-    }
-
-    private void setupLogoFont(View parentView) {
-        Typeface tf = Typeface.createFromAsset(Parom.inst().getAssets(), "fonts/georgiaz.ttf");
-        TextView tv = (TextView) parentView.findViewById(R.id   .text_logo);
-        tv.setTypeface(tf);
     }
 }

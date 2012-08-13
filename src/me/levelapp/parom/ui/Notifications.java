@@ -99,13 +99,16 @@ public class Notifications {
             notification.contentView = root;
             notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
-
             Intent notificationIntent = new Intent(mAppContext, MainActivity.class);
 
             notification.contentIntent = PendingIntent.getActivity(mAppContext, 0,
                     notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            mManager.notify(R.string.debug_name, notification);
+            mManager.notify(NOTIFICATION_ID++, notification);
+
+        if(NOTIFICATION_ID == Integer.MAX_VALUE ) {
+            NOTIFICATION_ID=0;
+        }
     }
 
     private int calculateInSampleSize(BitmapFactory.Options options, float reqWidth) {

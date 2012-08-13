@@ -46,4 +46,13 @@
             android:paddingLeft="5dp"
             android:text="@string/debug_message"/>
 
+    <ImageView android:layout_below="@id/label_date"
+               android:layout_alignParentRight="true"
+               android:layout_width="30dip"
+               android:layout_height="30dip"
+               android:scaleType="centerInside"
+               android:paddingBottom="5dip"
+               android:paddingRight="5dip"
+               android:src="@drawable/ic_app_logo"/>
+
 </RelativeLayout>
