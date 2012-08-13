@@ -60,7 +60,8 @@ public class Parom extends Application {
         super.onCreate();
         inst = this;
         mConMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        copyDebugPhotos();
+        copyDebugPhotos(JSONFiles.EVENTS);
+        copyDebugPhotos("geometria.json");
         bus = new EventBus();
         bus.register(this);
         mImageLoader = new ImageLoader(this);
@@ -82,10 +83,10 @@ public class Parom extends Application {
         return inst().bus;
     }
 
-    private void copyDebugPhotos() {
+    private void copyDebugPhotos(String fileNmae) {
         try {
-            InputStream in = getAssets().open(JSONFiles.EVENTS);
-            OutputStream out = openFileOutput(JSONFiles.EVENTS, MODE_PRIVATE);
+            InputStream in = getAssets().open(fileNmae);
+            OutputStream out = openFileOutput(fileNmae, MODE_PRIVATE);
             ByteStreams.copy(in, out);
             in.close();
             out.flush();

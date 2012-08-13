@@ -19,6 +19,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/label_share"
                 android:onClick="onShareButtonClick"
+                android:drawableRight="@drawable/ic_menu_share"
                 />
         <Button
                 android:id="@+id/btn_save"

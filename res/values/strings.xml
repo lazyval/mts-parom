@@ -40,4 +40,7 @@
     <string name="dance">Балл на корме</string>
     <string name="geometria">Geometria</string>
     <string name="mts">При поддержке МТС\n и St.Peterline</string>
+    <string name="all_events">Все</string>
+    <string name="my_events">Выбранные</string>
+    <string name="not_my">Не выбранные события</string>
 </resources>

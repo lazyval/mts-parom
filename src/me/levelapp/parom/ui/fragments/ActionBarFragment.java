@@ -1,13 +1,11 @@
 package me.levelapp.parom.ui.fragments;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 import com.google.common.eventbus.Subscribe;
 import me.levelapp.parom.R;
 import me.levelapp.parom.model.Parom;
@@ -43,9 +41,11 @@ public class ActionBarFragment extends Fragment {
 
     @Subscribe
     public void showActionView(ShowActionsEvent e) {
-        if (e.getActionView() == null) {
+
             mActions.removeAllViews();
-        } else {
+            mActions.setVisibility(View.GONE);
+        if (e.getActionView()!= null ) {
+            mActions.setVisibility(View.VISIBLE);
             mActions.addView(e.getActionView());
         }
     }
