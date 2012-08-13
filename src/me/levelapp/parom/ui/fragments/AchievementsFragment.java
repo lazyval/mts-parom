@@ -25,12 +25,12 @@ public class AchievementsFragment extends ListFragment {
         View ret = inflater.inflate(R.layout.fragment_achievements, container, false),
                 achievementsLayout = ret.findViewById(R.id.achievements_layout);
         values = new String[]{
-                constructInfo("Новичок", "Продолжай в том же духе и у тебя все получится!"),
-                constructInfo("Кинолюбитель", "Вся жизнь кино и мы актеры в ней"),
-                constructInfo("Заливала", "In vino veritas"),
-                constructInfo("Игрок", "Должно быть ты действительно азартный чувак!"),
-                constructInfo("Гурман", ""),
-                constructInfo("Колумб", "")
+                constructInfo("", "Продолжай в том же духе и у тебя все получится!"),
+                constructInfo("", "Вся жизнь кино и мы актеры в ней"),
+                constructInfo("", "In vino veritas"),
+                constructInfo("", "Должно быть ты действительно азартный чувак!"),
+                constructInfo("", ""),
+                constructInfo("", "")
         };
 
 
@@ -57,7 +57,7 @@ public class AchievementsFragment extends ListFragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
+                summary.setText(values[0]); // set info for the first badge
             }
         });
     }
