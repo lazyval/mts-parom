@@ -1,9 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Мтс Паром</string>
+    <string name="app_name">МТС Паром</string>
     <string name="mount_sdcard">No sd card</string>
     <string name="upload_uri">http://korniltsev.ru/mts/upload</string>
-    <string name="json_events_uri">https://raw.github.com/gist/3298043/8e2c21a4ad20e852d75e88d1be22df7e7ba4057f/events.json</string>
+    <string name="json_events_uri">
+        https://raw.github.com/gist/3298043/8e2c21a4ad20e852d75e88d1be22df7e7ba4057f/events.json
+    </string>
     <string name="make_pick_from_gallery">Pick from gallery</string>
     <string name="make_photo">Make photo</string>
     <string name="tab_events">События</string>
@@ -15,7 +17,8 @@
     <string name="debug_name_date">19:00 Марафон коктейлей</string>
     <string name="debug_place">Ресторан у моря\nКонкурс мисс паром</string>
     <string name="debug_event_description">бесплатный второй коктейль, тетки и мужики крутота.\n
-        бесплатный второй коктейль, тетки и мужики крутота.</string>
+        бесплатный второй коктейль, тетки и мужики крутота.
+    </string>
     <string name="go">Я пойду</string>
     <string name="do_not_go">Don\'t go</string>
     <string name="my_photos">Мои фото</string>
@@ -29,9 +32,10 @@
     <string name="debug_message">Описание</string>
     <string name="debug_time">Время</string>
     <string name="when"><h1>20</h1>:00\n
-    7 авг.</string>
-    <string name="question"> \? </string>
-    <string name="visit_interesting">Посетите интересные места: </string>
+        7 авг.
+    </string>
+    <string name="question">\?</string>
+    <string name="visit_interesting">Посетите интересные места:</string>
     <string name="party_hard">Вечеринка 7:00</string>
     <string name="dance">Балл на корме</string>
     <string name="geometria">Geometria</string>
