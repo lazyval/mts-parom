@@ -194,14 +194,13 @@ public class EventsAdapter extends BaseExpandableListAdapter {
         EventDescHolder holder = (EventDescHolder) convertView.getTag();
         holder.position = i;
         holder.desc.setText(obj.optString("description"));
-//        if (go) {
-//            holder.btnGo.setText(mContext.getString(R.string.do_not_go));
-//            holder.root.setBackgroundColor(Color.GREEN);
-//        } else {
-//            holder.btnGo.setText(mContext.getString(R.string.go));
-//            holder.root.setBackgroundColor(Color.TRANSPARENT);
-//        }
 
+        boolean go = obj.optBoolean("go", false);
+        if (go) {
+            holder.btnGo.setText("Я не иду");
+        } else {
+            holder.btnGo.setText("Я иду");
+        }
         return convertView;
     }
 
