@@ -22,7 +22,7 @@
             android:id="@+id/tab_bar"
             android:name="me.levelapp.parom.ui.fragments.BottomTabBarFragment"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_below="@id/wrapper_title"/>
 
 

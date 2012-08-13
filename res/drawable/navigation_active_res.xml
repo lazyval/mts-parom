@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/navigation_active"/>
-    <item >
-        <shape android:shape="rectangle">
-            <solid android:color="#00ff00ff"/>
-            <stroke android:color="#000000"
-                    android:dashGap="25dp"
-                    android:dashWidth="25dp"/>
-            <padding android:bottom="10dp"
-                     android:left="10dp"
-                     android:right="10dp"
-                    />
-        </shape>
+    <item android:drawable="@drawable/navigation_active_2"/>
+    <!--<item >-->
+        <!--&lt;!&ndash;<shape android:shape="rectangle">&ndash;&gt;-->
+            <!--&lt;!&ndash;<solid android:color="#00ff00ff"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;<stroke android:color="#000000"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:dashGap="25dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:dashWidth="25dp"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;<padding android:bottom="10dp"&ndash;&gt;-->
+                     <!--&lt;!&ndash;android:left="10dp"&ndash;&gt;-->
+                     <!--&lt;!&ndash;android:right="10dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;/>&ndash;&gt;-->
+        <!--</shape>-->
 
-    </item>
+    <!--</item>-->
 </layer-list>
