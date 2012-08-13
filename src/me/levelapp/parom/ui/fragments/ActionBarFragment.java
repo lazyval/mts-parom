@@ -1,11 +1,14 @@
 package me.levelapp.parom.ui.fragments;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import com.google.common.eventbus.Subscribe;
 import me.levelapp.parom.R;
 import me.levelapp.parom.model.Parom;
@@ -23,6 +26,7 @@ public class ActionBarFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View ret = inflater.inflate(R.layout.fragment_action_bar, container, false);
         mActions = (FrameLayout) ret.findViewById(R.id.wrapper_action);
+        setupLogoFont(ret);
         return ret;
     }
 
@@ -46,5 +50,11 @@ public class ActionBarFragment extends Fragment {
         } else {
             mActions.addView(e.getActionView());
         }
+    }
+
+    private void setupLogoFont(View parentView) {
+        Typeface tf = Typeface.createFromAsset(Parom.inst().getAssets(), "fonts/georgiaz.ttf");
+        TextView tv = (TextView) parentView.findViewById(R.id.text_logo);
+        tv.setTypeface(tf);
     }
 }

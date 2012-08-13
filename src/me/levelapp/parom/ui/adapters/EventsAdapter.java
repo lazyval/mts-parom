@@ -30,7 +30,7 @@ public class EventsAdapter extends BaseExpandableListAdapter {
         public TextView label1;
         public TextView label2;
         int position;
-        View root;
+        final View root;
 
 
         public EventHolder(View root) {
@@ -65,7 +65,6 @@ public class EventsAdapter extends BaseExpandableListAdapter {
 
         @Override
         public void onClick(View v) {
-
             JSONObject obj = mData.optJSONObject(position);
             try {
                 if (obj.optBoolean("go", false)) {
@@ -181,10 +180,7 @@ public class EventsAdapter extends BaseExpandableListAdapter {
         JSONObject obj = mData.optJSONObject(i);
         EventDescHolder holder = (EventDescHolder) convertView.getTag();
         holder.position = i;
-
         holder.desc.setText(obj.optString("description"));
-
-
 //        if (go) {
 //            holder.btnGo.setText(mContext.getString(R.string.do_not_go));
 //            holder.root.setBackgroundColor(Color.GREEN);
@@ -192,7 +188,6 @@ public class EventsAdapter extends BaseExpandableListAdapter {
 //            holder.btnGo.setText(mContext.getString(R.string.go));
 //            holder.root.setBackgroundColor(Color.TRANSPARENT);
 //        }
-
         return convertView;
     }
 

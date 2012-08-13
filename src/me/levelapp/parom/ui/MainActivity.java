@@ -11,13 +11,9 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
+import android.widget.*;
 import com.google.common.eventbus.Subscribe;
 import me.levelapp.parom.R;
 import me.levelapp.parom.http.UploadPictureTask;
@@ -36,6 +32,7 @@ public class MainActivity extends BaseActivity {
     private static final int REQUEST_CAMERA_CAPTURE = 0;
     private static final int REQUEST_PICK_FROM_GALLERY = 1;
     private static final String STATE_CAM_PHOTO_URI = "image-uri";
+    private static final int TIME_IN_WAY = 320, ESTIMATED_TIME = 480;
 
 
     private Animation rotateWheel;
@@ -67,9 +64,10 @@ public class MainActivity extends BaseActivity {
         rotateWheel = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
 
 
-        Parom.getNotification().notifyNewMessage("pic", "Бухач-пати", "Мега-пати в мега-клубе");
+        Parom.getNotification().notifyNewMessage("pic", "Бортовая Вечеринка", "Зажигай весь вечер и всю ночь напролёт!");
+
         createShipImage();
-        shipImage.setTime(240, 480);
+        shipImage.setTime(TIME_IN_WAY, ESTIMATED_TIME);
     }
 
     @Override
@@ -91,7 +89,7 @@ public class MainActivity extends BaseActivity {
             startActivity(new Intent(this, IntroActivity.class));
         }
 
-        shipImage.setTime(120, 480);
+        shipImage.setTime(TIME_IN_WAY, ESTIMATED_TIME);
     }
 
     @Subscribe
@@ -205,7 +203,7 @@ public class MainActivity extends BaseActivity {
 
     private void createShipImage() {
         shipImage = (ShipImageView) findViewById(R.id.ship);
-        shipImage.setParams(screenWidth);
+        shipImage.setParams(screenWidth, (ImageView) findViewById(R.id.water_image));
     }
 
     private void determineScreenParams() {

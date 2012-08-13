@@ -3,7 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
-                android:background="#efefef">
+                android:background="@drawable/bg_action_bar_bitmap">
     <ImageView
             android:id="@+id/ic_logo"
             android:layout_width="50dp"
@@ -11,9 +11,12 @@
             android:src="@drawable/ic_app_logo"
             android:padding="7dp"/>
     <TextView
+            android:id="@+id/text_logo"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:text="@string/app_name"
+            android:textSize="22sp"
+            android:textColor="#FFFFFF"
             android:layout_toRightOf="@id/ic_logo"
             android:layout_centerVertical="true"
             android:gravity="center"/>
@@ -26,11 +29,24 @@
 
     </FrameLayout>
 
+    <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:id="@+id/water_image"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:background="@drawable/water_bitmap" />
+
+    </LinearLayout>
+
     <me.levelapp.parom.ui.imageview.ShipImageView
             android:id="@+id/ship"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_ship"
-            android:layout_alignParentBottom="true"
-            />
+            android:layout_alignParentBottom="true" />
+
 </RelativeLayout>

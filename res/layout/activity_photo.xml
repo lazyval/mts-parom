@@ -3,7 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
-    <ImageView
+    <com.polites.android.GestureImageView
             android:id="@+id/img_content"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true">
         <Button
-                android:id ="@+id/btn_share"
+                android:id="@+id/btn_share"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
                 android:onClick="onShareButtonClick"
                 />
         <Button
-                android:id = "@+id/btn_save"
+                android:id="@+id/btn_save"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"

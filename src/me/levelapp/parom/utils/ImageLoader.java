@@ -34,10 +34,10 @@ public class ImageLoader {
         displayImage(uri, imageView, null);
     }
 
-    public void displayFile(String filePath, Displayable imageView){
+    public void displayFile(String filePath, Displayable imageView) {
         imageViews.put(imageView, filePath);
         Bitmap b = memoryCache.get(filePath);
-        if (b != null){
+        if (b != null) {
             imageView.display(b);
         } else {
             queueFile(filePath, imageView);
@@ -76,7 +76,7 @@ public class ImageLoader {
         File f = fileCache.getFile(photoToLoad.url);
 
         //from SD cache
-        Bitmap b = decodeFile(photoToLoad,f);
+        Bitmap b = decodeFile(photoToLoad, f);
         if (b != null)
             return b;
 
@@ -111,7 +111,7 @@ public class ImageLoader {
 
             //Find the correct scale value. It should be the power of 2.
             final int REQUIRED_SIZE = p.desiredSize == null ? 70 : p.desiredSize;
-            Log.d(TAG, "rEQUIRED_SIZE "+ REQUIRED_SIZE);
+            Log.d(TAG, "rEQUIRED_SIZE " + REQUIRED_SIZE);
             int width_tmp = o.outWidth, height_tmp = o.outHeight;
             int scale = 1;
             while (true) {
@@ -224,7 +224,7 @@ public class ImageLoader {
                 return;
             if (bitmap != null) {
                 photoToLoad.imageView.display(bitmap);
-                //Log.d(TAG, bitmap.getByteCount() + " ");
+//                Log.d(TAG, bitmap.getByteCount() + " ");
             } else {
 //                photoToLoad.imageView.setImageResource(stub_id);
             }
@@ -238,13 +238,14 @@ public class ImageLoader {
         fileCache.clear();
         Log.d(TAG, "Cache cleared");
     }
+
     public void clearMemoryCache() {
         memoryCache.clear();
         Log.d(TAG, "Memory Cache cleared");
     }
 
 
-    public interface Displayable{
+    public interface Displayable {
         void display(Bitmap b);
         Context getContext();
     }
