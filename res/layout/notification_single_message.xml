@@ -30,6 +30,7 @@
             android:layout_toRightOf="@id/label_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="right"
             android:textColor="#cfcfcf"
             android:text="@string/debug_time"
             android:padding="5dp"/>
@@ -48,9 +49,9 @@
 
     <ImageView android:layout_below="@id/label_date"
                android:layout_alignParentRight="true"
-               android:layout_width="30dip"
-               android:layout_height="30dip"
-               android:scaleType="centerInside"
+               android:layout_width="20dip"
+               android:layout_height="20dip"
+               android:scaleType="fitEnd"
                android:paddingBottom="5dip"
                android:paddingRight="5dip"
                android:src="@drawable/ic_app_logo"/>

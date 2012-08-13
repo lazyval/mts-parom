@@ -33,6 +33,7 @@ public class MainActivity extends BaseActivity {
     private static final int REQUEST_CAMERA_CAPTURE = 0;
     private static final int REQUEST_PICK_FROM_GALLERY = 1;
     private static final String STATE_CAM_PHOTO_URI = "image-uri";
+    private static final int ELAPSED_TIME=120, ESTIMATED_TIME=480;
 
 
     private Animation rotateWheel;
@@ -61,9 +62,10 @@ public class MainActivity extends BaseActivity {
         rotateWheel = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
 
 
-        Parom.getNotification().notifyNewMessage("pic", "Бухач-пати", "Мега-пати в мега-клубе");
+        Parom.getNotification().notifyNewMessage("pic", "Паромная вечеринка", "Веселись весь вечер и всю ночь напролёт!");
+
         createShipImage();
-        shipImage.setTime(240, 480);
+        shipImage.setTime(ELAPSED_TIME, ESTIMATED_TIME);
     }
 
     @Override
@@ -85,7 +87,7 @@ public class MainActivity extends BaseActivity {
             startActivity(new Intent(this, IntroActivity.class));
         }
 
-        shipImage.setTime(120, 480);
+        shipImage.setTime(ELAPSED_TIME, ESTIMATED_TIME);
     }
 
     @Subscribe
