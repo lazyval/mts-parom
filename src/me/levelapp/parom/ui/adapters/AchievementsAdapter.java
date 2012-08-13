@@ -1,8 +1,8 @@
 package me.levelapp.parom.ui.adapters;
 
 import android.content.Context;
-import android.util.TypedValue;
-import android.view.Gravity;
+import android.text.Html;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -17,8 +17,8 @@ import me.levelapp.parom.R;
  * To change this template use File | Settings | File Templates.
  */
 public class AchievementsAdapter extends BaseAdapter {
-    private Context context;
-    private String[] values;
+    private final Context context;
+    private final String[] values;
 
     public AchievementsAdapter(Context c, String[] array) {
         context = c;
@@ -37,19 +37,12 @@ public class AchievementsAdapter extends BaseAdapter {
         return 0;
     }
 
-    public View getView(int position, View convertView, ViewGroup arg2) {
-        TextView tv;
-        if (convertView == null) {  // if it's not recycled, initialize some attributes
-            tv = new TextView(context);
-            tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-            tv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_launcher, 0, 0);
-            tv.setGravity(Gravity.CENTER);
-        } else {
-            tv = (TextView) convertView;
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.view_achivements_item, parent, false);
         }
-
-        tv.setText(values[position]);
-
+        final TextView tv = (TextView) convertView.findViewById(R.id.label_achivements);
+        tv.setText(Html.fromHtml(values[position]));
         return tv;
     }
 }

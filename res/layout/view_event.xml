@@ -2,111 +2,112 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="fill_parent"
              android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:background="#ff0000">
+             android:paddingTop="5dp"
+             android:paddingLeft="5dp"
+             android:paddingRight="5dp"
+             android:background="#ff0000">
 
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="fill_parent"
-             android:layout_height="wrap_content"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
 
-        android:id="@+id/wrapper_event"
-        android:background="@drawable/bg_rounded_white">
-    <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:id="@+id/wrapper_event"
+                 android:background="@drawable/bg_rounded_white">
+        <RelativeLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
 
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-
-
-            android:paddingTop="5dp"
-            android:paddingLeft="5dp"
-            android:paddingBottom="5dp"
-            android:paddingRight="10dp"
-
-            >
-        <ImageView
-                android:id="@+id/img"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/img_debug_party"
-                android:layout_marginRight="3dp"
-                />
-        <TextView
-                android:id="@+id/label_event"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
 
-                android:layout_toRightOf="@id/img"
 
-                android:text="@string/debug_name_date"
-                android:textStyle="bold"
-                android:textSize="17dp"
-                android:textColor="#444444"
-                android:paddingBottom="4dp"
-                android:layout_marginTop="-3dp"
-                />
-        <TextView
-                android:id="@+id/label_place"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/img"
-                android:layout_below="@id/label_event"
-                android:textSize="14dp"
-                android:text="@string/debug_place"
-                android:textColor="#616161"/>
-        <TextView
-                android:id="@+id/label_address"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/img"
-                android:layout_below="@id/label_place"
-                android:textSize="14dp"
-                android:text="@string/debug_place"
-                android:textColor="#86ad88"
-                android:drawableLeft="@drawable/icon_paluba"
-                android:drawablePadding="5dp"
-                />
-        <TextView
-                android:id="@+id/label_time_remaining"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/img"
-                android:layout_alignBottom="@id/img"
-                android:textSize="12dp"
-                android:text="@string/debug_place"
-                android:textColor="#d1d2d3"/>
-        <TextView
-                android:id="@+id/label_top"
-            android:layout_width="52dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/label_blue_top"
-                android:layout_alignParentRight="true"
-                android:padding="0dp"
-                android:text="@string/when"
-                android:layout_margin="0dp"
-                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingLeft="5dp"
+                android:paddingBottom="5dp"
+                android:paddingRight="10dp"
 
-                android:textSize="12dp"
-                android:textColor="@color/white"/>
-        <TextView
-                android:id="@+id/label_bot"
-            android:layout_width="52dp"
-            android:layout_height="40dp"
-            android:layout_below="@id/label_top"
-            android:layout_alignParentRight="true"
-            android:padding="0dp"
-            android:layout_margin="0dp"
-            android:gravity="center"
-            android:textSize="25dp"
-            android:text="@string/question"
-            android:textColor="@color/white"
-                android:background="@drawable/label_blue_bottom"/>
+                >
+            <ImageView
+                    android:id="@+id/img"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/img_debug_party"
+                    android:layout_marginRight="3dp"
+                    />
+            <TextView
+                    android:id="@+id/label_event"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_toRightOf="@id/img"
+
+                    android:text="@string/debug_name_date"
+                    android:textStyle="bold"
+                    android:textSize="17dp"
+                    android:textColor="#444444"
+                    android:paddingBottom="4dp"
+                    android:layout_marginTop="-3dp"
+                    />
+            <TextView
+                    android:id="@+id/label_place"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/img"
+                    android:layout_below="@id/label_event"
+                    android:textSize="14dp"
+                    android:text="@string/debug_place"
+                    android:textColor="#616161"/>
+            <TextView
+                    android:id="@+id/label_address"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/img"
+                    android:layout_below="@id/label_place"
+                    android:textSize="14dp"
+                    android:text="@string/debug_place"
+                    android:textColor="#86ad88"
+                    android:drawableLeft="@drawable/icon_paluba"
+                    android:drawablePadding="5dp"
+                    android:onClick="startMapActivity"
+                    />
+            <TextView
+                    android:id="@+id/label_time_remaining"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/img"
+                    android:layout_alignBottom="@id/img"
+                    android:textSize="12dp"
+                    android:text="@string/debug_place"
+                    android:textColor="#d1d2d3"/>
+            <TextView
+                    android:id="@+id/label_top"
+                    android:layout_width="52dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/label_blue_top"
+                    android:layout_alignParentRight="true"
+                    android:padding="0dp"
+                    android:text="@string/when"
+                    android:layout_margin="0dp"
+                    android:gravity="center"
+
+                    android:textSize="12dp"
+                    android:textColor="@color/white"/>
+            <TextView
+                    android:id="@+id/label_bot"
+                    android:layout_width="52dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/label_top"
+                    android:layout_alignParentRight="true"
+                    android:padding="0dp"
+                    android:layout_margin="0dp"
+                    android:gravity="center"
+                    android:textSize="25dp"
+                    android:text="@string/question"
+                    android:textColor="@color/white"
+                    android:background="@drawable/label_blue_bottom"/>
 
 
-    </RelativeLayout>
+        </RelativeLayout>
 
-</FrameLayout>
+    </FrameLayout>
 </FrameLayout>

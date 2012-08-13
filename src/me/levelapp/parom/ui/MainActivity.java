@@ -11,12 +11,9 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.google.common.eventbus.Subscribe;
 import me.levelapp.parom.R;
@@ -57,9 +54,6 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
         setContentView(R.layout.activity_main);
         determineScreenParams();
 
@@ -87,7 +81,7 @@ public class MainActivity extends BaseActivity {
 
 
         String parom = Parom.getParomName();
-        if (parom == null){
+        if (parom == null) {
             startActivity(new Intent(this, IntroActivity.class));
         }
 
@@ -104,7 +98,7 @@ public class MainActivity extends BaseActivity {
                 break;
             case TURN_WHEEL_OFF:
                 wheel.clearAnimation();
-                Toast.makeText(this, getString(R.string.uploaded_photo), Toast.LENGTH_LONG) .show();
+                Toast.makeText(this, getString(R.string.uploaded_photo), Toast.LENGTH_LONG).show();
                 break;
         }
     }
@@ -152,7 +146,7 @@ public class MainActivity extends BaseActivity {
                             query(selectedImage, filePathColumn, null, null, null);
                     cursor.moveToFirst();
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                     filePath= cursor.getString(columnIndex);
+                    filePath = cursor.getString(columnIndex);
                     cursor.close();
                     //filePath
 //                    goPhoto(filePath);
@@ -165,13 +159,13 @@ public class MainActivity extends BaseActivity {
                             query(selectedImage, filePathColumn, null, null, null);
                     cursor.moveToFirst();
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                     filePath = cursor.getString(columnIndex);
+                    filePath = cursor.getString(columnIndex);
                     cursor.close();
 //                    goPhoto(filePath);
                     break;
                 }
             }
-            if (filePath!= null){
+            if (filePath != null) {
                 JSONFiles.storePicture(new File(filePath), this);
                 Parom.bus().post(new TabEvent(R.id.tab_photo));
                 new UploadPictureTask(this).execute(new File(filePath));
@@ -182,6 +176,11 @@ public class MainActivity extends BaseActivity {
     private void goPhoto(String filePath) {
         Intent i = new Intent(this, PhotoActivity.class);
         i.putExtra(PhotoActivity.EXTRA_PHOTO_FILE, filePath);
+        startActivity(i);
+    }
+
+    public void startMapActivity(View v) {
+        final Intent i = new Intent(this, MapActivity.class);
         startActivity(i);
     }
 
@@ -203,6 +202,7 @@ public class MainActivity extends BaseActivity {
         builder.create().show();
     }
 
+
     private void createShipImage() {
         shipImage = (ShipImageView) findViewById(R.id.ship);
         shipImage.setParams(screenWidth);
@@ -211,7 +211,7 @@ public class MainActivity extends BaseActivity {
     private void determineScreenParams() {
         DisplayMetrics metrics = new DisplayMetrics();
         this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        screenDensity = (float)(metrics.densityDpi) / 120;
+        screenDensity = (float) (metrics.densityDpi) / 120;
         screenWidth = metrics.widthPixels;
     }
 
