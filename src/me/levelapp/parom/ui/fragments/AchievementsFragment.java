@@ -33,6 +33,7 @@ public class AchievementsFragment extends ListFragment {
                 constructInfo("Колумб", "")
         };
 
+
         fillGrid(achievementsLayout);
 
 //        fillHeader(achievementsLayout);
@@ -44,7 +45,10 @@ public class AchievementsFragment extends ListFragment {
         final HorizontalListView hlist = (HorizontalListView) parentView.findViewById(R.id.achievements_grid);
         final TextView summary = (TextView) parentView.findViewById(R.id.achievement_summary);
 
-        hlist.setAdapter(new AchievementsAdapter(parentView.getContext(), values));
+
+        final String[] names = new String[]{"Новичок", "Кинолюбитель", "Заливала", "Игрок", "Гурман", "Колумб"};
+
+        hlist.setAdapter(new AchievementsAdapter(parentView.getContext(), names));
         hlist.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
@@ -65,6 +69,6 @@ public class AchievementsFragment extends ListFragment {
 
 
     private static String constructInfo(String header, String description) {
-        return "<h2>" + header + "</h2><br><p>" + description + "</p>";
+        return "" + header + " \n" + description + "";
     }
 }

@@ -10,7 +10,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/achive_small_ship"
-            android:text="Fooo!"
-            android:padding="10dip"/>
+            android:padding="5dip"/>
 
 </LinearLayout>
