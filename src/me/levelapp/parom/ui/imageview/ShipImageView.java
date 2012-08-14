@@ -18,17 +18,24 @@ import android.widget.LinearLayout;
 public class ShipImageView extends ImageView {
     private int pathLength, pastMinutes, estimatedMinutes=1, currentX;
     private ImageView waterImage;
+    private LinearLayout.LayoutParams waterImageLayoutParams;
 
     public ShipImageView(Context context) {
         super(context);
+        waterImageLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
     public ShipImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        waterImageLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
     public ShipImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        waterImageLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
     @Override
@@ -36,12 +43,14 @@ public class ShipImageView extends ImageView {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if((getWidth()>0) && (pathLength>getWidth())) {
             this.setNewShipPosition(getWidth());
+
             if(pathLength - currentX > 0) {
-                waterImage.setLayoutParams(new LinearLayout.LayoutParams(currentX, ViewGroup.LayoutParams.WRAP_CONTENT));
+                waterImageLayoutParams.width = currentX;
+                waterImage.setLayoutParams(waterImageLayoutParams);
             } else {
-                waterImage.setLayoutParams(new LinearLayout.LayoutParams(1, ViewGroup.LayoutParams.WRAP_CONTENT));
+                waterImageLayoutParams.width = 1;
+                waterImage.setLayoutParams(waterImageLayoutParams);
             }
-            //waterImage.invalidate();
         }
     }
 

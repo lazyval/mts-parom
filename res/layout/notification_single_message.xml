@@ -33,7 +33,7 @@
             android:gravity="right"
             android:textColor="#cfcfcf"
             android:text="@string/debug_time"
-            android:padding="5dp"/>
+            android:padding="4dp"/>
 
     <TextView
             android:id="@+id/label_msg"
@@ -49,11 +49,11 @@
 
     <ImageView android:layout_below="@id/label_date"
                android:layout_alignParentRight="true"
-               android:layout_width="20dip"
-               android:layout_height="20dip"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
                android:scaleType="fitEnd"
-               android:paddingBottom="5dip"
-               android:paddingRight="5dip"
+               android:paddingBottom="4dip"
+               android:paddingRight="4dip"
                android:src="@drawable/ic_app_logo"/>
 
 </RelativeLayout>
